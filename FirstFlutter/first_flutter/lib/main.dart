@@ -1,3 +1,4 @@
+import 'package:first_flutter/listHeader.dart';
 import 'package:flutter/material.dart';
 import "event.dart";
 import 'tempTestData.dart';
@@ -34,19 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: ListView(
         children: <Widget>[
-          Container(
-            color: Colors.grey[850],
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-              child: Text(
-                "Aangemeld als:",
-                style: TextStyle(
-                  color: Colors.grey[300],
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
+          ListHeader(text: "Aangemeld als:",),
           Row(
             children: <Widget>[
               Expanded(
@@ -85,19 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          Container(
-            color: Colors.grey[850],
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-              child: Text(
-                "Mijn evenementen:",
-                style: TextStyle(
-                  color: Colors.grey[300],
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
+          ListHeader(text: "Mijn evenementen:",),
           EventList(),
         ],
       ),
