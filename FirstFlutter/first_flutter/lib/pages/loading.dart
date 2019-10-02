@@ -1,4 +1,4 @@
-import 'package:first_flutter/widgets/appbar.dart';
+import '../widgets/appbar.dart';
 import 'package:flutter/material.dart';
 
 class Loading extends StatefulWidget {
