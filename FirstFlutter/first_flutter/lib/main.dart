@@ -1,10 +1,19 @@
+import 'package:first_flutter/listHeader.dart';
 import 'package:flutter/material.dart';
+import "event.dart";
+import 'tempTestData.dart';
+import 'eventListWidget.dart';
 
 void main() => runApp(MaterialApp(
   home : HomeScreen(),
 ));
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,26 +35,14 @@ class HomeScreen extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          Container(
-            color: Colors.grey[850],
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-              child: Text(
-                "Aangemeld als:",
-                style: TextStyle(
-                  color: Colors.grey[300],
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
+          ListHeader(text: "Aangemeld als:",),
           Row(
             children: <Widget>[
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(25, 10, 5, 10),
                   child: Text(
-                    "Holder Place :)",
+                    "Niet aangemeld!",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -58,13 +55,18 @@ class HomeScreen extends StatelessWidget {
                 child: ButtonTheme(
                   minWidth: 50,
                   child: RaisedButton(
-                    onPressed: () {
-                      print("logout button pressed");
-                    },
-                    child: Icon(
-                      Icons.exit_to_app,
-                      color: Color(0xff00285A),
-                      size: 30,
+                    onPressed: () {},
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          "Login"
+                        ),
+                        Icon(
+                          Icons.person,
+                          color: Color(0xff00285A),
+                          size: 30,
+                        ),
+                      ],
                     ),
                     color: Colors.amber,
                   ),
@@ -72,571 +74,8 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-          Container(
-            color: Colors.grey[850],
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-              child: Text(
-                "Mijn evenementen:",
-                style: TextStyle(
-                  color: Colors.grey[300],
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
-          FlatButton(
-            splashColor: Colors.amber,
-            onPressed: () {
-              print("open placeholder VIRINAL");
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                  child: Image(
-                    image: AssetImage("assets/virinalsmall.png"),
-                    width: 80,
-                    height: 80,
-                  ),
-                ),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 10, 5, 5),
-                        child: Text("Le Virinal 2019",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 5, 5, 0),
-                        child: Text("02-09-2019 tot 06-09-2019",
-                          style: TextStyle(
-                            color: Colors.grey[400],
-                            fontSize: 14,
-                          )
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          FlatButton(
-            splashColor: Colors.amber,
-            onPressed: () {
-              print("open placeholder VIRINAL 2020");
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  child: Image(
-                    image: AssetImage("assets/virinalsmall.png"),
-                    width: 80,
-                    height: 80,
-                  ),
-                ),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 10, 5, 5),
-                        child: Text("Le Virinal 2020 test lange naam",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 5, 5, 10),
-                        child: Text("02-09-2020 tot 06-09-2020",
-                            style: TextStyle(
-                              color: Colors.grey[400],
-                              fontSize: 14,
-                            )
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          FlatButton(
-            splashColor: Colors.amber,
-            onPressed: () {
-              print("open placeholder VIRINAL 2020");
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  child: Image(
-                    image: AssetImage("assets/virinalsmall.png"),
-                    width: 80,
-                    height: 80,
-                  ),
-                ),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 10, 5, 5),
-                        child: Text("Le Virinal 2020 test lange naam",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 5, 5, 10),
-                        child: Text("02-09-2020 tot 06-09-2020",
-                            style: TextStyle(
-                              color: Colors.grey[400],
-                              fontSize: 14,
-                            )
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          FlatButton(
-            splashColor: Colors.amber,
-            onPressed: () {
-              print("open placeholder VIRINAL 2020");
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  child: Image(
-                    image: AssetImage("assets/virinalsmall.png"),
-                    width: 80,
-                    height: 80,
-                  ),
-                ),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 10, 5, 5),
-                        child: Text("Le Virinal 2020 test lange naam",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 5, 5, 10),
-                        child: Text("02-09-2020 tot 06-09-2020",
-                            style: TextStyle(
-                              color: Colors.grey[400],
-                              fontSize: 14,
-                            )
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          FlatButton(
-            splashColor: Colors.amber,
-            onPressed: () {
-              print("open placeholder VIRINAL 2020");
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  child: Image(
-                    image: AssetImage("assets/virinalsmall.png"),
-                    width: 80,
-                    height: 80,
-                  ),
-                ),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 10, 5, 5),
-                        child: Text("Le Virinal 2020 test lange naam",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 5, 5, 10),
-                        child: Text("02-09-2020 tot 06-09-2020",
-                            style: TextStyle(
-                              color: Colors.grey[400],
-                              fontSize: 14,
-                            )
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          FlatButton(
-            splashColor: Colors.amber,
-            onPressed: () {
-              print("open placeholder VIRINAL 2020");
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  child: Image(
-                    image: AssetImage("assets/virinalsmall.png"),
-                    width: 80,
-                    height: 80,
-                  ),
-                ),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 10, 5, 5),
-                        child: Text("Le Virinal 2020 test lange naam",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 5, 5, 10),
-                        child: Text("02-09-2020 tot 06-09-2020",
-                            style: TextStyle(
-                              color: Colors.grey[400],
-                              fontSize: 14,
-                            )
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          FlatButton(
-            splashColor: Colors.amber,
-            onPressed: () {
-              print("open placeholder VIRINAL 2020");
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  child: Image(
-                    image: AssetImage("assets/virinalsmall.png"),
-                    width: 80,
-                    height: 80,
-                  ),
-                ),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 10, 5, 5),
-                        child: Text("Le Virinal 2020 test lange naam",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 5, 5, 10),
-                        child: Text("02-09-2020 tot 06-09-2020",
-                            style: TextStyle(
-                              color: Colors.grey[400],
-                              fontSize: 14,
-                            )
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          FlatButton(
-            splashColor: Colors.amber,
-            onPressed: () {
-              print("open placeholder VIRINAL 2020");
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  child: Image(
-                    image: AssetImage("assets/virinalsmall.png"),
-                    width: 80,
-                    height: 80,
-                  ),
-                ),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 10, 5, 5),
-                        child: Text("Le Virinal 2020 test lange naam",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 5, 5, 10),
-                        child: Text("02-09-2020 tot 06-09-2020",
-                            style: TextStyle(
-                              color: Colors.grey[400],
-                              fontSize: 14,
-                            )
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          FlatButton(
-            splashColor: Colors.amber,
-            onPressed: () {
-              print("open placeholder VIRINAL 2020");
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  child: Image(
-                    image: AssetImage("assets/virinalsmall.png"),
-                    width: 80,
-                    height: 80,
-                  ),
-                ),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 10, 5, 5),
-                        child: Text("Le Virinal 2020 test lange naam",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 5, 5, 10),
-                        child: Text("02-09-2020 tot 06-09-2020",
-                            style: TextStyle(
-                              color: Colors.grey[400],
-                              fontSize: 14,
-                            )
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          FlatButton(
-            splashColor: Colors.amber,
-            onPressed: () {
-              print("open placeholder VIRINAL 2020");
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  child: Image(
-                    image: AssetImage("assets/virinalsmall.png"),
-                    width: 80,
-                    height: 80,
-                  ),
-                ),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 10, 5, 5),
-                        child: Text("Le Virinal 2020 test lange naam",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 5, 5, 10),
-                        child: Text("02-09-2020 tot 06-09-2020",
-                            style: TextStyle(
-                              color: Colors.grey[400],
-                              fontSize: 14,
-                            )
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          FlatButton(
-            splashColor: Colors.amber,
-            onPressed: () {
-              print("open placeholder VIRINAL 2020");
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  child: Image(
-                    image: AssetImage("assets/virinalsmall.png"),
-                    width: 80,
-                    height: 80,
-                  ),
-                ),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 10, 5, 5),
-                        child: Text("Le Virinal 2020 test lange naam",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 5, 5, 10),
-                        child: Text("02-09-2020 tot 06-09-2020",
-                            style: TextStyle(
-                              color: Colors.grey[400],
-                              fontSize: 14,
-                            )
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          FlatButton(
-            splashColor: Colors.amber,
-            onPressed: () {
-              print("open placeholder VIRINAL 2020");
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  child: Image(
-                    image: AssetImage("assets/virinalsmall.png"),
-                    width: 80,
-                    height: 80,
-                  ),
-                ),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 10, 5, 5),
-                        child: Text("Le Virinal 2020 test lange naam",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 5, 5, 10),
-                        child: Text("02-09-2020 tot 06-09-2020",
-                            style: TextStyle(
-                              color: Colors.grey[400],
-                              fontSize: 14,
-                            )
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
+          ListHeader(text: "Mijn evenementen:",),
+          EventList(),
         ],
       ),
       floatingActionButton: Padding(
@@ -647,7 +86,7 @@ class HomeScreen extends StatelessWidget {
           },
           child: Icon(
             Icons.add,
-            size: 50,
+            size: 40,
           ),
           foregroundColor: Color(0xff00285A),
           backgroundColor: Colors.amber,
