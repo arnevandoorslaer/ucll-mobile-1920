@@ -18,7 +18,7 @@ class TempTestData{
           location: "Le Virinal + adres",
           startDate: new DateTime(2019, 09, 02),
           endDate: new DateTime(2019, 09, 06),
-          picPath: "virinalsmall.png",
+          picPath: "virinal.jpg",
           extraInfo: "Epische week",
           participants: [users[0], users[1], users[2]]),
       Event(eventName: "BBC 4",

@@ -4,7 +4,4 @@ import 'pages/home.dart';
 
 void main() => runApp(MaterialApp(
   home : Home(),
-  routes: {
-    '/' : (context)
-  },
 ));
