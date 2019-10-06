@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import 'package:first_flutter/classes/event.dart';
-import 'package:first_flutter/classes/tempTestData.dart';
-import 'package:first_flutter/widgets/appbar.dart';
-=======
+import '../classes/event.dart';
+import '../classes/tempTestData.dart';
 import '../widgets/appbar.dart';
->>>>>>> f3fbab720a43d60162fa27aef0be6113c8ab49d4
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';

@@ -1,5 +1,5 @@
-import 'package:first_flutter/pages/addEvent.dart';
-import 'package:first_flutter/pages/loading.dart';
+import 'pages/addEvent.dart';
+import 'pages/loading.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/home.dart';
