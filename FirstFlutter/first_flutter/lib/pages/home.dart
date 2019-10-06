@@ -1,8 +1,7 @@
+
 import 'package:flutter/material.dart';
 
 import "../classes/event.dart";
-import '../classes/tempTestData.dart';
-import '../classes/user.dart';
 import '../widgets/listHeader.dart';
 import '../widgets/eventListWidget.dart';
 import '../widgets/appbar.dart';
@@ -13,13 +12,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Event> events = TempTestData.getEvents();
+  Map data = {};
+  List<Event> events= [];
 
   @override
   Widget build(BuildContext context) {
+    // vul die map aan
+    data = ModalRoute.of(context).settings.arguments;
+    events = data['events'];
+
     return Scaffold(
       backgroundColor: Colors.grey[900],
-      appBar: CustomAppBarWidget(),
+      appBar: CustomAppBarWidget(text: "Event Manager",),
       body: ListView(
         children: <Widget>[
           ListHeader(text: "Aangemeld als:",),
@@ -66,13 +70,8 @@ class _HomeState extends State<Home> {
       floatingActionButton: Padding(
         padding: EdgeInsets.fromLTRB(0, 0, 15, 15),
         child: FloatingActionButton(
-          onPressed: () {
-            print("floating button pressed");
-          },
-          child: Icon(
-            Icons.add,
-            size: 40,
-          ),
+          onPressed: () {Navigator.pushNamed(context, "/add");},
+          child: Icon(Icons.add, size: 40,),
           foregroundColor: Color(0xff00285A),
           backgroundColor: Colors.amber,
         ),
