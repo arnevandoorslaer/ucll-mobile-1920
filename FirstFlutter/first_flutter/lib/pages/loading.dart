@@ -22,7 +22,7 @@ class _LoadingState extends State<Loading> {
     // Map data = jsonDecode(res.body);
     //temp
     events = TempTestData.getEvents();
-    Future.delayed(Duration(milliseconds: 100)).then((_) {
+    Future.delayed(Duration(milliseconds: 5000)).then((_) {
       Navigator.pushReplacementNamed
         (context, '/home', arguments: {'events': events});
     });

@@ -1,3 +1,4 @@
+import 'package:Cleverdivide/widgets/aanmaakForm.dart';
 import 'package:flutter/material.dart';
 
 import "../classes/event.dart";
@@ -18,7 +19,7 @@ class _AddEventState extends State<AddEvent> {
     return Scaffold(
       appBar: CustomAppBarWidget(text: "Event Maken",),
       backgroundColor: Colors.grey[900],
-      body: Text("Dit is add schermpie"),
+      body: AanmaakForm(),
     );
   }
 }
