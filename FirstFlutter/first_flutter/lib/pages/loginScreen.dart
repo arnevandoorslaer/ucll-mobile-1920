@@ -117,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
                     child: RaisedButton(
                         onPressed: () {
-
+                          Navigator.pushNamed(context,  "/register");
                         },
                         color: Colors.amber,
                         child: Text('Registreren',
