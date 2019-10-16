@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ListHeader extends StatelessWidget {
   final String text;
-  ListHeader({this.text});
+  ListHeader(Row row, {this.text});
   @override
   Widget build(BuildContext context) {
     return Container(
