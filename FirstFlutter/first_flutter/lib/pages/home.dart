@@ -46,7 +46,7 @@ class _HomeState extends State<Home> {
                 child: ButtonTheme(
                   minWidth: 50,
                   child: RaisedButton(
-                    onPressed: () {},
+                    onPressed: () {Navigator.pushNamed(context, "/login");},
                     child: Row(
                       children: <Widget>[
                         Text("Login"),

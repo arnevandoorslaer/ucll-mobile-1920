@@ -1,6 +1,5 @@
 import 'package:Cleverdivide/widgets/listHeader.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_multiselect/flutter_multiselect.dart';
@@ -234,14 +233,22 @@ class _AanmaakFormState extends State<AanmaakForm> {
                   ),
                 ),
 
-                RaisedButton(
-                    onPressed: () {
-                      if(_formKey.currentState.validate()){
-                        Scaffold.of(context).
-                        showSnackBar(SnackBar(content: Text('Processing Data')));
-                      }
-                    },
-                    child: Text('Toevoegen')
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
+                  child: RaisedButton(
+                      onPressed: () {
+                        if(_formKey.currentState.validate()){
+                          Scaffold.of(context).
+                          showSnackBar(SnackBar(content: Text('Processing Data')));
+                        }
+                      },
+                      color: Colors.amber,
+                      child: Text('Toevoegen',
+                        style: TextStyle(
+                          color: Color(0xff00285A),
+                        )
+                      )
+                  ),
                 ),
               ],
             )

@@ -5,13 +5,13 @@ class TempTestData{
   static List<Event> getEvents () {
     var users = [
       User(userName: "BelgianNoise", name: "Arthur",
-          sirName: "Joppart", cardNumber: "BE00 0000 0000 0000"),
+          surName: "Joppart", cardNumber: "BE00 0000 0000 0000"),
       User(userName: "Lemonade", name: "Styn",
-          sirName: "Taelemans", cardNumber: "BE11 1111 1111 1111"),
+          surName: "Taelemans", cardNumber: "BE11 1111 1111 1111"),
       User(userName: "BigBoiArne", name: "Arne",
-          sirName: "Vandoorslaer", cardNumber: "BE22 2222 2222 2222"),
+          surName: "Vandoorslaer", cardNumber: "BE22 2222 2222 2222"),
       User(userName: "ZwaardSchild", name: "Ruben",
-          sirName: "Claes", cardNumber: "BE33 3333 3333 3333")
+          surName: "Claes", cardNumber: "BE33 3333 3333 3333")
     ];
     return [
       Event(eventName: "VSV Week 2019",
@@ -33,13 +33,13 @@ class TempTestData{
   static List<User> getUsers(){
     return [
       User(userName: "BelgianNoise", name: "Arthur",
-          sirName: "Joppart", cardNumber: "BE00 0000 0000 0000"),
+          surName: "Joppart", cardNumber: "BE00 0000 0000 0000"),
       User(userName: "Lemonade", name: "Styn",
-          sirName: "Taelemans", cardNumber: "BE11 1111 1111 1111"),
+          surName: "Taelemans", cardNumber: "BE11 1111 1111 1111"),
       User(userName: "BigBoiArne", name: "Arne",
-          sirName: "Vandoorslaer", cardNumber: "BE22 2222 2222 2222"),
+          surName: "Vandoorslaer", cardNumber: "BE22 2222 2222 2222"),
       User(userName: "ZwaardSchild", name: "Ruben",
-          sirName: "Claes", cardNumber: "BE33 3333 3333 3333")
+          surName: "Claes", cardNumber: "BE33 3333 3333 3333")
     ];
   }
 }

@@ -1,5 +1,5 @@
 class User{
-    String name, sirName, cardNumber, userName;
+    String name, surName, cardNumber, userName;
 
-    User({this.userName, this.name, this.sirName, this.cardNumber});
+    User({this.userName, this.name, this.surName, this.cardNumber});
 }
