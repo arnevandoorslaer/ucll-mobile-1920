@@ -13,7 +13,7 @@ class EventScreen extends StatefulWidget {
 
 class _EventScreenState extends State<EventScreen> {
 
-  //git test
+  //git test 2
 
   @override
   Widget build(BuildContext context) {
