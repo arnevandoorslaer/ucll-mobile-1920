@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import "../classes/event.dart";
 
 class EventScreen extends StatefulWidget {
@@ -13,6 +12,8 @@ class EventScreen extends StatefulWidget {
 }
 
 class _EventScreenState extends State<EventScreen> {
+
+  //git test
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class _EventScreenState extends State<EventScreen> {
                 child: ListView(
                   padding: EdgeInsets.only(top: 80, left: 10, right: 10),
                   children: <Widget>[
-  
+
                     Card( //omschrijving----------------------------------------
                       margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
                       child: Padding(
@@ -43,7 +44,7 @@ class _EventScreenState extends State<EventScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-  
+
                             Padding(
                               padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
                               child: Text(
@@ -58,7 +59,7 @@ class _EventScreenState extends State<EventScreen> {
                                   )
                               ),
                             ),
-  
+
                             Text(
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar, augue at consectetur vestibulum, est lectus condimentum lectus, nec pellentesque massa ante eget lectus. Morbi ut turpis velit. Ut ante leo, commodo eu commodo et, ullamcorper quis nunc. Vivamus velit purus, interdum ac mi vitae, cursus aliquet eros. Aenean quis enim sit amet massa posuere gravida.",
                                 textAlign: TextAlign.left,
@@ -74,7 +75,7 @@ class _EventScreenState extends State<EventScreen> {
                         ),
                       ),
                     ),
-  
+
                     Card( //deelnemers------------------------------------------
                       margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
                       child: Padding(
@@ -95,7 +96,7 @@ class _EventScreenState extends State<EventScreen> {
                                     ),
                                   ),
                                 ),
-  
+
                                 Text(
                                   "Obama Obama",
                                   textAlign: TextAlign.left,
@@ -109,7 +110,7 @@ class _EventScreenState extends State<EventScreen> {
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),
-  
+
                                 Text(
                                   "Malicious User",
                                   textAlign: TextAlign.left,
@@ -123,7 +124,7 @@ class _EventScreenState extends State<EventScreen> {
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),
-  
+
                                 Text(
                                   "Steve van Minecraft enal enzo dit is een test op lange naam",
                                   textAlign: TextAlign.left,
@@ -141,7 +142,7 @@ class _EventScreenState extends State<EventScreen> {
                           )
                       ),
                     ),
-  
+
                     Card( //map-------------------------------------------------
                       margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
                       child: Column(
@@ -256,7 +257,7 @@ class _EventScreenState extends State<EventScreen> {
 
                       ],
                     ),
-  
+
                   ],
                 )
             ),
