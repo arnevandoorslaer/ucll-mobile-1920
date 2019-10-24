@@ -24,7 +24,7 @@ class _EventListState extends State<EventList> {
         return  FlatButton(
           splashColor: Colors.amber,
           onPressed: () {
-            Navigator.pushNamed(context, "/event");
+            Navigator.pushNamed(context, "/event", arguments:{'event':event});
             //print("open placeholder ${event.eventName}");
           },
           child: Column(

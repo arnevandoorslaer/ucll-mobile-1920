@@ -1,85 +1,148 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import "../classes/event.dart";
+import "../classes/user.dart";
 
 class EventScreen extends StatefulWidget {
-  final Event event;
-
-  EventScreen({this.event});
-
   @override
   _EventScreenState createState() => _EventScreenState();
 }
 
 class _EventScreenState extends State<EventScreen> {
-
-  //git test 2
+  Map data = {};
+  Event event;
+  List<User> participants;
 
   @override
   Widget build(BuildContext context) {
+    data = ModalRoute.of(context).settings.arguments;
+    event = data['event'];
+    double screenHeight = MediaQuery.of(context).size.height;
+    participants = event.participants;
 
-    return Stack(
-      children: <Widget>[
-
-        Container( //Main window------------------------------------------------
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/bbc4.PNG"),
-              fit: BoxFit.cover,
+    return new Scaffold(
+      backgroundColor: Colors.grey[900],
+      body: new CustomScrollView(
+        scrollDirection: Axis.vertical,
+        slivers: <Widget>[
+          new SliverAppBar(
+            backgroundColor: Color(0xff00285A),
+            expandedHeight: 180.0,
+            pinned: true,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () => Navigator.pop(context),
+            ),
+            flexibleSpace: new FlexibleSpaceBar(
+              title: Text(
+                "${event.eventName}",
+                style: TextStyle(
+                  shadows: [Shadow(color: Colors.black, blurRadius: 8)],
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+              background: new Image.asset("assets/${event.picPath}",
+                  fit: BoxFit.cover),
             ),
           ),
+          new SliverPadding(
+            padding: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: screenHeight/3),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate(
+                  [
 
-          child: new BackdropFilter(
-            filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-            child: new Container(
-                decoration: new BoxDecoration(color: Colors.white.withOpacity(0.0)),
-                child: ListView(
-                  padding: EdgeInsets.only(top: 80, left: 10, right: 10),
-                  children: <Widget>[
+                    Row( //datums-----------------------------------------------
+                      children: <Widget>[
 
-                    Card( //omschrijving----------------------------------------
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
+                        Card(
+                          color: Colors.grey[800],
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
 
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                              child: Text(
-                                  "Evenement Omschrijving",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.none,
-                                  )
-                              ),
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                  child: Text(
+                                      "Van",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontFamily: 'Helvetica',
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.none,
+                                      )
+                                  ),
+                                ),
+
+                                Text(
+                                    "${event.getStartDateFormatted()}",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white70,
+                                      fontFamily: 'Helvetica',
+                                      fontWeight: FontWeight.normal,
+                                      decoration: TextDecoration.none,
+                                    )
+                                ),
+                              ],
                             ),
-
-                            Text(
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar, augue at consectetur vestibulum, est lectus condimentum lectus, nec pellentesque massa ante eget lectus. Morbi ut turpis velit. Ut ante leo, commodo eu commodo et, ullamcorper quis nunc. Vivamus velit purus, interdum ac mi vitae, cursus aliquet eros. Aenean quis enim sit amet massa posuere gravida.",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                  fontFamily: 'Helvetica',
-                                  fontWeight: FontWeight.normal,
-                                  decoration: TextDecoration.none,
-                                )
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
+
+                        Card(
+                          color: Colors.grey[800],
+                          margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                  child: Text(
+                                      "Tot",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontFamily: 'Helvetica',
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.none,
+                                      )
+                                  ),
+                                ),
+
+                                Text(
+                                    "${event.getEndDateFormatted()}",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white70,
+                                      fontFamily: 'Helvetica',
+                                      fontWeight: FontWeight.normal,
+                                      decoration: TextDecoration.none,
+                                    )
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                      ],
                     ),
 
                     Card( //deelnemers------------------------------------------
+                      color: Colors.grey[800],
                       margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
                       child: Padding(
-                          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                          padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
@@ -89,7 +152,7 @@ class _EventScreenState extends State<EventScreen> {
                                     "Deelnemers",
                                     style: TextStyle(
                                       fontSize: 20,
-                                      color: Colors.black,
+                                      color: Colors.white,
                                       fontFamily: 'Helvetica',
                                       fontWeight: FontWeight.bold,
                                       decoration: TextDecoration.none,
@@ -97,66 +160,44 @@ class _EventScreenState extends State<EventScreen> {
                                   ),
                                 ),
 
-                                Text(
-                                  "Obama Obama",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.black,
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.normal,
-                                    decoration: TextDecoration.none,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
+                                Column(
+                                  children: participants.map((user) {
+                                    //foute alignment, fucking dark magic
+                                      return Text("${user.getName()}",
+                                       textAlign: TextAlign.left,
+                                       style: TextStyle(
+                                         fontSize: 15,
+                                         color: Colors.white70,
+                                         fontFamily: 'Helvetica',
+                                         fontWeight: FontWeight.normal,
+                                         decoration: TextDecoration.none,
+                                       ),
+                                       overflow: TextOverflow.ellipsis,
+                                       maxLines: 1,
+                                    );
+                                  }).toList(),
                                 ),
 
-                                Text(
-                                  "Malicious User",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.black,
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.normal,
-                                    decoration: TextDecoration.none,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                ),
-
-                                Text(
-                                  "Steve van Minecraft enal enzo dit is een test op lange naam",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.black,
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.normal,
-                                    decoration: TextDecoration.none,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                ),
                               ]
                           )
                       ),
                     ),
 
                     Card( //map-------------------------------------------------
+                      color: Colors.grey[800],
                       margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
 
                           Padding(
-                            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                            padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
                             child: Text(
                                 "Locatie",
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   fontSize: 20,
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontFamily: 'Helvetica',
                                   fontWeight: FontWeight.bold,
                                   decoration: TextDecoration.none,
@@ -174,108 +215,53 @@ class _EventScreenState extends State<EventScreen> {
                       ),
                     ),
 
-                    Row( //datums-----------------------------------------------
-                      children: <Widget>[
+                    Card( //omschrijving----------------------------------------
+                      color: Colors.grey[800],
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
 
-                        Card(
-                          margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                                  child: Text(
-                                      "Van",
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                        fontFamily: 'Helvetica',
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.none,
-                                      )
-                                  ),
-                                ),
-
-                                Text(
-                                    "01/01/2000",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                      fontFamily: 'Helvetica',
-                                      fontWeight: FontWeight.normal,
-                                      decoration: TextDecoration.none,
-                                    )
-                                ),
-                              ],
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                              child: Text(
+                                  "Evenement Omschrijving",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontFamily: 'Helvetica',
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.none,
+                                  )
+                              ),
                             ),
-                          ),
-                        ),
 
-                        Card(
-                          margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                                  child: Text(
-                                      "Tot",
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                        fontFamily: 'Helvetica',
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.none,
-                                      )
-                                  ),
-                                ),
-
-                                Text(
-                                    "01/01/2000",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                      fontFamily: 'Helvetica',
-                                      fontWeight: FontWeight.normal,
-                                      decoration: TextDecoration.none,
-                                    )
-                                ),
-                              ],
+                            Text(
+                                "${event.extraInfo}",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white70,
+                                  fontFamily: 'Helvetica',
+                                  fontWeight: FontWeight.normal,
+                                  decoration: TextDecoration.none,
+                                )
                             ),
-                          ),
+                          ],
                         ),
-
-                      ],
+                      ),
                     ),
 
-                  ],
-                )
+                  ]
+              ),
             ),
           ),
-        ),
 
-        new Positioned( //Navbar------------------------------------------------
-          top: 0.0,
-          left: 0.0,
-          right: 0.0,
-          child: AppBar(
-            title: Text('Evenement Naam'),
-            backgroundColor: Colors.transparent, //Transparent
-            elevation: 0, //Shadow gone
-          ),
-        ),
-
-      ],
+        ],
+      ),
     );
   }
 }
