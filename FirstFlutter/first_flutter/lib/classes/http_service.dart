@@ -12,6 +12,7 @@ class HttpService {
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
 
+      // fromJson is belangrijk niet vergeten invullen bij nieuwe dingen guys
       List<User> users = body
           .map(
             (dynamic item) => User.fromJson(item),
@@ -26,7 +27,7 @@ class HttpService {
   }
 
   static Future<List<Event>> getEvents() async {
-    Response res = await get("www.arnevandoorslaer.ga:8086/events");
+    Response res = await get("http://www.arnevandoorslaer.ga:8086/events");
 
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
