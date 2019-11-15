@@ -6,4 +6,6 @@ class User{
     String getName(){
         return name + " " + surName;
     }
+
+  static fromJson(item) {}
 }

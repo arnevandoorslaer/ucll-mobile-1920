@@ -1,3 +1,4 @@
+import 'eventDB.dart';
 import 'user.dart';
 import 'event.dart';
 
@@ -13,21 +14,22 @@ class TempTestData{
       User(userName: "ZwaardSchild", name: "Ruben",
           surName: "Claes", cardNumber: "BE33 3333 3333 3333")
     ];
+    EventDB eventDB = new EventDB();
     return [
       Event(eventName: "VSV Week 2019",
           location: "Le Virinal + adres",
-          startDate: new DateTime(2019, 09, 02),
-          endDate: new DateTime(2019, 09, 06),
+          startDate:  "",
+          endDate: "",
           picPath: "virinal.jpg",
           extraInfo: "Epische week",
-          participants: [users[0], users[1], users[2]]),
+          participants: [1, 2]),
       Event(eventName: "BBC 4",
           location: "Kattem Strijtem ofzo",
-          startDate: new DateTime(2019, 08, 02),
-          endDate: new DateTime(2019, 08, 03),
+          startDate: "",
+          endDate: "",
           picPath: "bbc4.PNG",
           extraInfo: "Lekker smullen",
-          participants: [users[0], users[1], users[3]]),
+          participants: [1, 2]),
     ];
   }
   static List<User> getUsers(){
