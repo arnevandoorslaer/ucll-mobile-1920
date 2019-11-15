@@ -4,10 +4,9 @@ import 'package:Cleverdivide/classes/user.dart';
 import 'package:http/http.dart';
 
 class HttpService {
-  final String postsURL = "https://jsonplaceholder.typicode.com/posts";
 
-  Future<List<User>> getUsers() async {
-    Response res = await get(postsURL);
+  static Future<List<User>> getUsers() async {
+    Response res = await get("www.arnevandoorslaer.ga:8086/users");
 
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
@@ -18,6 +17,7 @@ class HttpService {
       )
           .toList();
 
+      print(users);
       return users;
     } else {
       throw "Can't get users.";
