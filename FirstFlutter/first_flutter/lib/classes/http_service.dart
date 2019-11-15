@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:Cleverdivide/classes/event.dart';
 import 'package:Cleverdivide/classes/user.dart';
 import 'package:http/http.dart';
 
@@ -19,6 +20,25 @@ class HttpService {
 
       print(users);
       return users;
+    } else {
+      throw "Can't get users.";
+    }
+  }
+
+  static Future<List<Event>> getEvents() async {
+    Response res = await get("www.arnevandoorslaer.ga:8086/events");
+
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+
+      List<Event> events = body
+          .map(
+            (dynamic item) => Event.fromJson(item),
+      )
+          .toList();
+
+      print(events);
+      return events;
     } else {
       throw "Can't get users.";
     }

@@ -12,6 +12,13 @@ class User{
         return this.id;
     }
 
-  static fromJson(item) {}
-
+    factory User.fromJson(Map<String, dynamic> json) {
+        return User(
+            id: json['id'] as int,
+            name: json['firstname'] as String,
+            surName: json['lastname'] as String,
+            cardNumber: json['iban'] as String,
+            userName: json['username'] as String,
+        );
+    }
 }
