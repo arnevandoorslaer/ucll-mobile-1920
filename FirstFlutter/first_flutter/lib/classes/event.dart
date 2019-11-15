@@ -3,19 +3,24 @@ import 'package:intl/intl.dart';
 
 class Event{
   String eventName;
-  DateTime startDate, endDate;
+  String startDate, endDate;
   String location;
-  List<User> participants;
+  List<int> participants;
   String extraInfo;
   String picPath;
 
   Event({this.eventName, this.location, this.extraInfo,
     this.startDate, this.endDate, this.participants, this.picPath});
 
-  String getStartDateFormatted(){
-    return DateFormat('dd-MM-yyyy').format(startDate);
-  }
-  String getEndDateFormatted(){
-    return DateFormat('dd-MM-yyyy').format(endDate);
+  static Event fromJson(json) {
+    Event event = new Event();
+    event.eventName = json.eventName;
+    event.startDate = json.startDate;
+    event.endDate = json.endDate;
+    event.location = json.location;
+    event.participants = json.participants;
+    event.extraInfo = json.extraInfo;
+    event.picPath = json.picPath;
+    return event;
   }
 }

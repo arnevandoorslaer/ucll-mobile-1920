@@ -11,4 +11,7 @@ class User{
     int getId(){
         return this.id;
     }
+
+  static fromJson(item) {}
+
 }

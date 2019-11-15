@@ -11,7 +11,7 @@ class EventScreen extends StatefulWidget {
 class _EventScreenState extends State<EventScreen> {
   Map data = {};
   Event event;
-  List<User> participants;
+  List<int> participants;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +80,7 @@ class _EventScreenState extends State<EventScreen> {
                                 ),
 
                                 Text(
-                                    "${event.getStartDateFormatted()}",
+                                    "${event.startDate}",
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       fontSize: 15,
@@ -120,7 +120,7 @@ class _EventScreenState extends State<EventScreen> {
                                 ),
 
                                 Text(
-                                    "${event.getEndDateFormatted()}",
+                                    "${event.endDate}",
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       fontSize: 15,
@@ -163,7 +163,7 @@ class _EventScreenState extends State<EventScreen> {
                                 Column(
                                   children: participants.map((user) {
                                     //foute alignment, fucking dark magic
-                                      return Text("${user.getName()}",
+                                      return Text("${user}",
                                        textAlign: TextAlign.left,
                                        style: TextStyle(
                                          fontSize: 15,
