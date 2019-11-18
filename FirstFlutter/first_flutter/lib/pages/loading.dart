@@ -1,4 +1,6 @@
+import 'package:Cleverdivide/classes/event.dart';
 import 'package:Cleverdivide/classes/http_service.dart';
+import 'package:Cleverdivide/classes/user.dart';
 
 import '../widgets/appbar.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,13 @@ class _LoadingState extends State<Loading> {
   HttpService httpService = new HttpService();
 
   void getData() async{
-    Navigator.pushReplacementNamed(context, '/home', arguments: {'httpService': httpService});
+
+    List<Event> events;
+    HttpService.getEvents().then((List<Event> result) =>
+        Navigator.pushReplacementNamed(context, '/home', arguments: {'events': result}))
+        .catchError(throw "met kindern");
+
+    Navigator.pushReplacementNamed(context, '/home', arguments: {'events': events});
   }
 
   @override

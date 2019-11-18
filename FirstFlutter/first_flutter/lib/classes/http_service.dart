@@ -7,7 +7,7 @@ import 'package:http/http.dart';
 class HttpService {
 
   static Future<List<User>> getUsers() async {
-    Response res = await get("www.arnevandoorslaer.ga:8086/users");
+    Response res = await get("http://www.arnevandoorslaer.ga:8086/users");
 
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
