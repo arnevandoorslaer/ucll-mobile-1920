@@ -23,8 +23,6 @@ class _LoadingState extends State<Loading> {
     HttpService.getEvents().then((List<Event> result) =>
         Navigator.pushReplacementNamed(context, '/home', arguments: {'events': result}))
         .catchError(throw "met kindern");
-
-    Navigator.pushReplacementNamed(context, '/home', arguments: {'events': events});
   }
 
   @override
