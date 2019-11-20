@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
 import "../classes/event.dart";
 import "../classes/user.dart";
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 
 class EventScreen extends StatefulWidget {
   @override
@@ -12,6 +14,12 @@ class EventScreen extends StatefulWidget {
 }
 
 class _EventScreenState extends State<EventScreen> {
+  GoogleMapController mapController;
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
+
   Map data = {};
   Event event;
   List<dynamic> participants;
@@ -278,13 +286,22 @@ class _EventScreenState extends State<EventScreen> {
                           ),
                           Padding(
                             padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            child: Image(
-                              image: AssetImage("assets/IMG_4085.jpg"),
+                            child: Container(
+                              height: 400,
+                              width: 400,
+                              child: GoogleMap(
+                                onMapCreated: _onMapCreated,
+                                initialCameraPosition: CameraPosition(
+                                  target: LatLng(48.066853, 12.863487),
+                                  zoom: 13.0,
+                                ),
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
+
                     Padding(
                       padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
                       child: FlatButton.icon(
