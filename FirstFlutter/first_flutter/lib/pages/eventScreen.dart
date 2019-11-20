@@ -11,7 +11,7 @@ class EventScreen extends StatefulWidget {
 class _EventScreenState extends State<EventScreen> {
   Map data = {};
   Event event;
-  List<int> participants;
+  List<dynamic> participants;
 
   @override
   Widget build(BuildContext context) {

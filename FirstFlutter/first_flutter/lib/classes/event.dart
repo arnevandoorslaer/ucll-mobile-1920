@@ -2,16 +2,17 @@ import 'user.dart';
 import 'package:intl/intl.dart';
 
 class Event{
+  int eventId;
   String eventName;
   String startDate, endDate;
   String location;
-  List<int> participants;
+  List<dynamic> participants;
   String extraInfo;
   String picPath;
 
-  Event({this.eventName, this.location, this.extraInfo,
+  Event({this.eventId, this.eventName, this.location, this.extraInfo,
     this.startDate, this.endDate, this.participants, this.picPath});
-
+/*
   static Event fromJson(json) {
     Event event = new Event();
     event.eventName = json.eventName;
@@ -22,5 +23,18 @@ class Event{
     event.extraInfo = json.extraInfo;
     event.picPath = json.picPath;
     return event;
+  }*/
+
+  factory Event.fromJson(Map<String, dynamic> json) {
+    return Event(
+        eventId: json['id'] as int,
+        eventName: json['location'] as String,
+        startDate: json['startDate'] as String,
+        endDate: json['endDate'] as String,
+        location: json['location'] as String,
+        extraInfo: json['extraInfo'] as String,
+        picPath: json['picPath'] as String,
+        participants: json['participants'] as List<dynamic>
+    );
   }
 }
