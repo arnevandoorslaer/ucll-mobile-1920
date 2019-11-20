@@ -6,6 +6,25 @@ import 'package:http/http.dart';
 
 class HttpService {
 
+  static Future<List<User>> getParticipants(int id) async{
+    Response res = await get("http://www.arnevandoorslaer.ga:8086/event/$id/participants");
+
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+
+      // fromJson is belangrijk niet vergeten invullen bij nieuwe dingen guys
+      List<User> users = body
+          .map(
+            (dynamic item) => User.fromJson(item),
+      )
+          .toList();
+
+      print(users);
+      return users;
+    } else {
+      throw "Can't get users.";
+    }
+  }
   static Future<List<User>> getUsers() async {
     Response res = await get("http://www.arnevandoorslaer.ga:8086/users");
 
