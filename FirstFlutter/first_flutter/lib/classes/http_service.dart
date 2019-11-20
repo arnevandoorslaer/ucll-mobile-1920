@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:Cleverdivide/classes/event.dart';
 import 'package:Cleverdivide/classes/user.dart';
@@ -61,6 +62,21 @@ class HttpService {
       return events;
     } else {
       throw "Can't get users.";
+    }
+  }
+
+  static Future<Double> getCostOfEvent(int eventid) async {
+    Response res = await get("http://www.arnevandoorslaer.ga:8086/event/$eventid/cost");
+
+    if (res.statusCode == 200) {
+      dynamic body = jsonDecode(res.body);
+
+      Double cost = body;
+
+      print(cost);
+      return cost;
+    } else {
+      throw "Can't get cost of event with id $eventid.";
     }
   }
 }
