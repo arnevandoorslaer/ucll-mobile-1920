@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:ui';
 import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,8 @@ class _EventScreenState extends State<EventScreen> {
   Map data = {};
   Event event;
   List<dynamic> participants;
-  double cost = 1000;
+  String cost = "loading...";
+  bool done = false;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,14 @@ class _EventScreenState extends State<EventScreen> {
     event = data['event'];
     double screenHeight = MediaQuery.of(context).size.height;
     participants = event.participants;
-    cost = 1;
+    HttpService.getCostOfEvent(event.eventId).then((String res) {
+      if(!done) {
+        setState(() {
+          cost = res;
+        });
+        done = true;
+      }
+    });
 
     return new Scaffold(
       backgroundColor: Colors.grey[900],
@@ -226,7 +235,7 @@ class _EventScreenState extends State<EventScreen> {
                                   fontFamily: 'Helvetica',
                                   decoration: TextDecoration.none,
                                 ),),
-                              Text("€ ${cost}",
+                              Text("€ ${cost.toString()}",
                                 style: TextStyle(
                                   fontSize: 18,
                                   color: Colors.white,

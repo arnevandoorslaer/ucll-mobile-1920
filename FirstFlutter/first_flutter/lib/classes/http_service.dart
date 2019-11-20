@@ -65,16 +65,16 @@ class HttpService {
     }
   }
 
-  static Future<Double> getCostOfEvent(int eventid) async {
+  static Future<String> getCostOfEvent(int eventid) async {
     Response res = await get("http://www.arnevandoorslaer.ga:8086/event/$eventid/cost");
 
     if (res.statusCode == 200) {
       dynamic body = jsonDecode(res.body);
 
-      Double cost = body;
+      double cost = body;
 
-      print(cost);
-      return cost;
+      print(cost.toString());
+      return cost.toString();
     } else {
       throw "Can't get cost of event with id $eventid.";
     }
