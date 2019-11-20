@@ -31,13 +31,13 @@ class _ParticipantListState extends State<ParticipantList> {
                   Text("${user.name} ${user.surName}",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: 18,
                     ),
                   ),
                   Text("${user.userName}",
                     style: TextStyle(
                       color: Colors.white70,
-                      fontSize: 14,
+                      fontSize: 12,
                     ),
                   ),
                 ],
