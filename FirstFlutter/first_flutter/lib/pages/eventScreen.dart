@@ -1,6 +1,8 @@
+import 'dart:ffi';
 import 'dart:ui';
 import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import "../classes/event.dart";
 import "../classes/user.dart";
 
@@ -13,6 +15,8 @@ class _EventScreenState extends State<EventScreen> {
   Map data = {};
   Event event;
   List<dynamic> participants;
+  String cost = "loading...";
+  bool done = false;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +24,14 @@ class _EventScreenState extends State<EventScreen> {
     event = data['event'];
     double screenHeight = MediaQuery.of(context).size.height;
     participants = event.participants;
+    HttpService.getCostOfEvent(event.eventId).then((String res) {
+      if(!done) {
+        setState(() {
+          cost = res;
+        });
+        done = true;
+      }
+    });
 
     return new Scaffold(
       backgroundColor: Colors.grey[900],
@@ -71,7 +83,7 @@ class _EventScreenState extends State<EventScreen> {
                                       "Van",
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 18,
                                         color: Colors.white,
                                         fontFamily: 'Helvetica',
                                         fontWeight: FontWeight.bold,
@@ -84,7 +96,7 @@ class _EventScreenState extends State<EventScreen> {
                                     "${event.startDate}",
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 13,
                                       color: Colors.white70,
                                       fontFamily: 'Helvetica',
                                       fontWeight: FontWeight.normal,
@@ -111,7 +123,7 @@ class _EventScreenState extends State<EventScreen> {
                                       "Tot",
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 18,
                                         color: Colors.white,
                                         fontFamily: 'Helvetica',
                                         fontWeight: FontWeight.bold,
@@ -124,7 +136,7 @@ class _EventScreenState extends State<EventScreen> {
                                     "${event.endDate}",
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 13,
                                       color: Colors.white70,
                                       fontFamily: 'Helvetica',
                                       fontWeight: FontWeight.normal,
@@ -202,6 +214,41 @@ class _EventScreenState extends State<EventScreen> {
                       ),
                     ),
 
+                    Padding( // GELDJES KNOP =======================
+                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
+                      child: RaisedButton.icon(
+                        splashColor: Colors.amber,
+                        color: Colors.grey[800],
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/loadingexpenses', arguments: {'id': event.eventId});
+                        },
+                        icon: Icon(Icons.list, color: Colors.white, size: 40,),
+                        label: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text("Totale kost:",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontFamily: 'Helvetica',
+                                  decoration: TextDecoration.none,
+                                ),),
+                              Text("€ ${cost.toString()}",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontFamily: 'Helvetica',
+                                  decoration: TextDecoration.none,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+
                     Card( //map-------------------------------------------------
                       color: Colors.grey[800],
                       margin: EdgeInsets.fromLTRB(5, 0, 5, 10),
@@ -223,7 +270,12 @@ class _EventScreenState extends State<EventScreen> {
                                 )
                             ),
                           ),
-
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: Text("${event.location}",
+                              style: TextStyle(color: Colors.white70, fontSize: 16),
+                            ),
+                          ),
                           Padding(
                             padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                             child: Image(
@@ -233,11 +285,29 @@ class _EventScreenState extends State<EventScreen> {
                         ],
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
+                      child: FlatButton.icon(
+                        color: Colors.red[200],
+                        onPressed: () {
+
+                        },
+                        label: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Text("Verwijder event",
+                            style: TextStyle(
+                              color: Colors.red[900],
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        icon: Icon(Icons.delete, color: Colors.red[900],size: 25,),
+                      ),
+                    )
                   ]
               ),
             ),
           ),
-
         ],
       ),
     );

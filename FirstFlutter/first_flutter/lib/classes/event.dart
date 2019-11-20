@@ -11,7 +11,13 @@ class Event{
   String picPath;
 
   Event({this.eventId, this.eventName, this.location, this.extraInfo,
-    this.startDate, this.endDate, this.participants, this.picPath});
+    this.startDate, this.endDate, this.participants, this.picPath}){
+    klonk();
+  }
+    void klonk(){
+      startDate = startDate.substring(0,startDate.length-3);
+      endDate = endDate.substring(0,endDate.length-3);
+    }
 /*
   static Event fromJson(json) {
     Event event = new Event();
@@ -28,7 +34,7 @@ class Event{
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
         eventId: json['id'] as int,
-        eventName: json['location'] as String,
+        eventName: json['eventName'] as String,
         startDate: json['startDate'] as String,
         endDate: json['endDate'] as String,
         location: json['location'] as String,
