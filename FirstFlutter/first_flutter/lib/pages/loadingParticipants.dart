@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:Cleverdivide/classes/event.dart';
 import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:Cleverdivide/classes/user.dart';
@@ -8,29 +10,35 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'home.dart';
 
-class Loading extends StatefulWidget {
+class LoadingParticipants extends StatefulWidget {
   @override
-  _LoadingState createState() => _LoadingState();
+  _LoadingParticipantsState createState() => _LoadingParticipantsState();
 }
 
-class _LoadingState extends State<Loading> {
+class _LoadingParticipantsState extends State<LoadingParticipants> {
+
+  Map data = {};
+  int id;
 
   void getData() async{
+    data = ModalRoute.of(context).settings.arguments;
+    id = data['id'];
 
-    HttpService.getEvents().then((List<Event> result) =>
-        Navigator.pushReplacementNamed(context, '/home',
-            arguments: {'events': result}))
+    HttpService.getParticipants(id).then((List<User> result) =>
+        Navigator.pushReplacementNamed(context, '/participants',
+            arguments: {'users': result}))
         .catchError(throw "met kindern");
   }
 
   @override
   void initState() {
     super.initState();
-    getData();
   }
 
   @override
   Widget build(BuildContext context) {
+    getData();
+
     return Scaffold(
       appBar: CustomAppBarWidget(text: "Loading...",),
       body: Center(

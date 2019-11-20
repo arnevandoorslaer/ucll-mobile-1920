@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:flutter/material.dart';
 import "../classes/event.dart";
 import "../classes/user.dart";
@@ -53,8 +54,8 @@ class _EventScreenState extends State<EventScreen> {
                   [
 
                     Row( //datums-----------------------------------------------
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-
                         Card(
                           color: Colors.grey[800],
                           margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
@@ -134,58 +135,76 @@ class _EventScreenState extends State<EventScreen> {
                             ),
                           ),
                         ),
-
                       ],
                     ),
 
-                    Card( //deelnemers------------------------------------------
+                    Card( //omschrijving----------------------------------------
                       color: Colors.grey[800],
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                      margin: EdgeInsets.fromLTRB(5, 0, 5, 10),
                       child: Padding(
-                          padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                                  child: Text(
-                                    "Deelnemers",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                      fontFamily: 'Helvetica',
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                ),
+                        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
 
-                                Column(
-                                  children: participants.map((user) {
-                                    //foute alignment, fucking dark magic
-                                      return Text("${user}",
-                                       textAlign: TextAlign.left,
-                                       style: TextStyle(
-                                         fontSize: 15,
-                                         color: Colors.white70,
-                                         fontFamily: 'Helvetica',
-                                         fontWeight: FontWeight.normal,
-                                         decoration: TextDecoration.none,
-                                       ),
-                                       overflow: TextOverflow.ellipsis,
-                                       maxLines: 1,
-                                    );
-                                  }).toList(),
-                                ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                              child: Text(
+                                  "Omschrijving",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontFamily: 'Helvetica',
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.none,
+                                  )
+                              ),
+                            ),
 
-                              ]
-                          )
+                            Text(
+                                "${event.extraInfo}",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white70,
+                                  fontFamily: 'Helvetica',
+                                  fontWeight: FontWeight.normal,
+                                  decoration: TextDecoration.none,
+                                )
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    Padding( // DEELNEMER KNOP =======================
+                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
+                      child: RaisedButton.icon(
+                        splashColor: Colors.amber,
+                        color: Colors.grey[800],
+                        onPressed: () {
+                              Navigator.pushNamed(context, '/loadingparticipants', arguments: {'id': event.eventId});
+                        },
+                        icon: Icon(Icons.list, color: Colors.white, size: 40,),
+                        label: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                          child: Text("${participants.length} Deelnemers",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
 
                     Card( //map-------------------------------------------------
                       color: Colors.grey[800],
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                      margin: EdgeInsets.fromLTRB(5, 0, 5, 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -214,47 +233,6 @@ class _EventScreenState extends State<EventScreen> {
                         ],
                       ),
                     ),
-
-                    Card( //omschrijving----------------------------------------
-                      color: Colors.grey[800],
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                              child: Text(
-                                  "Evenement Omschrijving",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.none,
-                                  )
-                              ),
-                            ),
-
-                            Text(
-                                "${event.extraInfo}",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.white70,
-                                  fontFamily: 'Helvetica',
-                                  fontWeight: FontWeight.normal,
-                                  decoration: TextDecoration.none,
-                                )
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
                   ]
               ),
             ),
