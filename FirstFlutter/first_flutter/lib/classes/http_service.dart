@@ -65,16 +65,39 @@ class HttpService {
     }
   }
 
-  static Future<Double> getCostOfEvent(int eventid) async {
+  static Future<bool> login(int userid, String hashedPassword) async {
+    Response res = await get("http://www.arnevandoorslaer.ga:8086/user/$userid/login");
+
+    if (res.statusCode == 200) {
+      dynamic body = jsonDecode(res.body);
+
+      int result = body;
+
+      if (result == 1) {
+        return true;
+      }
+      else if (result == -1) {
+        throw "User not found";
+      }
+      else {
+        throw "Password incorrect";
+      }
+
+    } else {
+      throw "Can't login user with id $userid.";
+    }
+  }
+
+  static Future<String> getCostOfEvent(int eventid) async {
     Response res = await get("http://www.arnevandoorslaer.ga:8086/event/$eventid/cost");
 
     if (res.statusCode == 200) {
       dynamic body = jsonDecode(res.body);
 
-      Double cost = body;
+      double cost = body;
 
-      print(cost);
-      return cost;
+      print(cost.toString());
+      return cost.toString();
     } else {
       throw "Can't get cost of event with id $eventid.";
     }

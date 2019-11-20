@@ -69,20 +69,7 @@ class _EventListState extends State<EventList> {
                   ),
                 ],
               ),
-              FlatButton.icon(
-                onPressed: () {
-                  setState(() {
-                    events.remove(event);
-                  });
-                },
-                label: Text("Verwijder event",
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 14,
-                  ),
-                ),
-                icon: Icon(Icons.delete, color: Colors.red,size: 20,),
-              )
+              Divider(color: Colors.white70, height: 20,),
             ],
           ),
         );
