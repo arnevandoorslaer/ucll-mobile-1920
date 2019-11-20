@@ -27,7 +27,10 @@ class _EventScreenState extends State<EventScreen> {
     HttpService.getCostOfEvent(event.eventId).then((String res) {
       if(!done) {
         setState(() {
-          cost = res;
+          RegExp exp = new RegExp(r"(\d+\.\d{0,1})");
+          String str = res;
+          var matches = exp.allMatches(str);
+          cost = matches.elementAt(0).group(0);
         });
         done = true;
       }
@@ -190,62 +193,78 @@ class _EventScreenState extends State<EventScreen> {
                       ),
                     ),
 
-                    Padding( // DEELNEMER KNOP =======================
+                    Padding(
                       padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
-                      child: RaisedButton.icon(
-                        splashColor: Colors.amber,
-                        color: Colors.grey[800],
-                        onPressed: () {
-                              Navigator.pushNamed(context, '/loadingparticipants', arguments: {'id': event.eventId});
-                        },
-                        icon: Icon(Icons.list, color: Colors.white, size: 40,),
-                        label: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                          child: Text("${participants.length} Deelnemers",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontFamily: 'Helvetica',
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.none,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    Padding( // GELDJES KNOP =======================
-                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
-                      child: RaisedButton.icon(
-                        splashColor: Colors.amber,
-                        color: Colors.grey[800],
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/loadingexpenses', arguments: {'id': event.eventId});
-                        },
-                        icon: Icon(Icons.list, color: Colors.white, size: 40,),
-                        label: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text("Totale kost:",
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          RaisedButton.icon(
+                            splashColor: Colors.amber,
+                            color: Colors.grey[800],
+                            onPressed: () {
+                                  Navigator.pushNamed(context, '/loadingparticipants', arguments: {'id': event.eventId});
+                            },
+                            icon: Icon(Icons.list, color: Colors.white, size: 40,),
+                            label: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                              child: Text("${participants.length} Deelnemers",
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 17,
                                   color: Colors.white,
                                   fontFamily: 'Helvetica',
-                                  decoration: TextDecoration.none,
-                                ),),
-                              Text("€ ${cost.toString()}",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                  fontFamily: 'Helvetica',
+                                  fontWeight: FontWeight.bold,
                                   decoration: TextDecoration.none,
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+                          RaisedButton(onPressed: () {},
+                            child: Icon(Icons.add, color: Color(0xff00285A), size: 30,),
+                            color: Colors.amber,),
+                        ],
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          RaisedButton.icon(
+                            splashColor: Colors.amber,
+                            color: Colors.grey[800],
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/loadingexpenses', arguments: {'id': event.eventId});
+                            },
+                            icon: Icon(Icons.list, color: Colors.white, size: 40,),
+                            label: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text("Kost:  ",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                      fontFamily: 'Helvetica',
+                                      decoration: TextDecoration.none,
+                                    ),),
+                                  Text("€ ${cost.toString()}",
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      color: Colors.white,
+                                      fontFamily: 'Helvetica',
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          RaisedButton(onPressed: () {},
+                              child: Icon(Icons.add, color: Color(0xff00285A), size: 30,),
+                            color: Colors.amber,),
+                        ],
                       ),
                     ),
 
