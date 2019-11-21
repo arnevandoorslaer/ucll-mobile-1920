@@ -1,3 +1,5 @@
+import 'package:Cleverdivide/classes/http_service.dart';
+
 import 'eventDB.dart';
 import 'user.dart';
 import 'event.dart';
@@ -14,7 +16,8 @@ class TempTestData{
       User(userName: "ZwaardSchild", name: "Ruben",
           surName: "Claes", cardNumber: "BE33 3333 3333 3333")
     ];
-    EventDB eventDB = new EventDB();
+    HttpService.getUsers();
+    /*
     return [
       Event(eventName: "VSV Week 2019",
           location: "Le Virinal + adres",
@@ -30,7 +33,7 @@ class TempTestData{
           picPath: "bbc4.PNG",
           extraInfo: "Lekker smullen",
           participants: [1, 2]),
-    ];
+    ];*/
   }
   static List<User> getUsers(){
     return [
