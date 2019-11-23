@@ -1,12 +1,10 @@
-import 'dart:ffi';
 import 'dart:ui';
 import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import "../classes/event.dart";
-import "../classes/user.dart";
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
+import 'package:geocoder/geocoder.dart';
+import 'package:location_permissions/location_permissions.dart';
 
 class EventScreen extends StatefulWidget {
   @override
@@ -14,7 +12,11 @@ class EventScreen extends StatefulWidget {
 }
 
 class _EventScreenState extends State<EventScreen> {
+
+  //google mapke hier hier hier-------------------------------------------------
   GoogleMapController mapController;
+  double lat;
+  double long;
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -25,13 +27,19 @@ class _EventScreenState extends State<EventScreen> {
   List<dynamic> participants;
   String cost = "loading...";
   bool done = false;
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
 
   @override
   Widget build(BuildContext context) {
+
     data = ModalRoute.of(context).settings.arguments;
     event = data['event'];
+    Coordinates coordinates = data['coordinates'];
+    lat = coordinates.latitude;
+    long = coordinates.longitude;
     double screenHeight = MediaQuery.of(context).size.height;
     participants = event.participants;
+
     HttpService.getCostOfEvent(event.eventId).then((String res) {
       if(!done) {
         setState(() {
@@ -42,6 +50,19 @@ class _EventScreenState extends State<EventScreen> {
         });
         done = true;
       }
+    });
+
+    var markerIdVal = this.event.location;
+    final MarkerId markerId = MarkerId(markerIdVal);
+
+    final Marker marker = Marker(
+      markerId: markerId,
+      position: LatLng(this.lat, this.long),
+      infoWindow: InfoWindow(title: markerIdVal),
+    );
+
+    setState(() {
+      markers[markerId] = marker;
     });
 
     return new Scaffold(
@@ -311,9 +332,10 @@ class _EventScreenState extends State<EventScreen> {
                               child: GoogleMap(
                                 onMapCreated: _onMapCreated,
                                 initialCameraPosition: CameraPosition(
-                                  target: LatLng(48.066853, 12.863487),
-                                  zoom: 13.0,
+                                  target: LatLng(this.lat, this.long),
+                                  zoom: 15.0,
                                 ),
+                                markers: Set<Marker>.of(markers.values),
                               ),
                             ),
                           ),
