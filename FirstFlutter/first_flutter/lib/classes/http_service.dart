@@ -3,7 +3,9 @@ import 'dart:ffi';
 
 import 'package:Cleverdivide/classes/event.dart';
 import 'package:Cleverdivide/classes/user.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:crypto/crypto.dart';
 
 class HttpService {
 
@@ -80,14 +82,12 @@ class HttpService {
     }
   }
 
-  static Future<bool> login(int userid, String hashedPassword) async {
+  static Future<bool> login(String username, String password) async {
+    var hashed = sha512.convert(utf8.encode(password));
+    var bodyy = "{\"username\" : \"$username\", \"password\" : \"$hashed\"}";
 
-    String username = "";
-    HttpService.getUsername(userid).then((res) => username = res);
-
-    Response res = await get("http://www.arnevandoorslaer.ga:8086/user/login");
-
-    // TODO fix backend login
+    Response res = await post(
+        "http://www.arnevandoorslaer.ga:8086/user/login", body: bodyy);
 
     if (res.statusCode == 200) {
       dynamic body = jsonDecode(res.body);
@@ -98,14 +98,13 @@ class HttpService {
         return true;
       }
       else if (result == -1) {
-        throw "User not found";
+        throw Exception("User not found");
       }
       else {
-        throw "Password incorrect";
+        throw Exception("Password incorrect");
       }
-
     } else {
-      throw "Can't login user with id $userid.";
+      throw Exception("Can't login user '$username'. ${res.statusCode} - ${res.body}");
     }
   }
 

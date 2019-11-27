@@ -40,7 +40,7 @@ class _LoadingEventState extends State<LoadingEvent> {
     getData();
 
     return Scaffold(
-      appBar: CustomAppBarWidget(text: "Loading...",),
+      appBar: CustomAppBarWidget(text: "Loading Event Info...",),
       body: Center(
         child: SpinKitRing(
           color: Colors.amber,

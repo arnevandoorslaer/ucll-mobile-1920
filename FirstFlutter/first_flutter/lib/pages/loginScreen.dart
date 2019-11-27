@@ -1,3 +1,4 @@
+import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:flutter/material.dart';
 import '../widgets/appbar.dart';
 
@@ -88,11 +89,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
                     child: RaisedButton(
                         onPressed: () {
-                          if(_formKey.currentState.validate()){
-                            _scaffoldKey.currentState.
-                            showSnackBar(SnackBar(content: Text('aan het inloggen...')));
-                            print("$username - $password");
-                          }
+                            if (_formKey.currentState.validate()) {
+                              HttpService.login(username, password).then((val){
+                                _scaffoldKey.currentState.
+                                showSnackBar(
+                                    SnackBar(content: Text('Ingelogd makker')));
+                              })
+                              .catchError((err){
+                                _scaffoldKey.currentState
+                                    .showSnackBar(SnackBar(content: Text('$err')));
+                              });
+                            }
                         },
                         color: Colors.amber,
                         child: Text('Inloggen',
