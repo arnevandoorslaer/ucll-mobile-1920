@@ -9,6 +9,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  String username = "kk";
+  String password = "kk";
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10,0,10,10),
                     child: TextFormField(
+                      onChanged: (String value) {username = value;},
                       maxLines: null,
                       style: TextStyle(
                         color: Colors.white,
@@ -54,6 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10,0,10,10),
                     child: TextFormField(
+                      onChanged: (String value) {password = value;},
                       obscureText: true,
                       maxLines: null,
                       style: TextStyle(
@@ -87,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           if(_formKey.currentState.validate()){
                             _scaffoldKey.currentState.
                             showSnackBar(SnackBar(content: Text('aan het inloggen...')));
+                            print("$username - $password");
                           }
                         },
                         color: Colors.amber,
