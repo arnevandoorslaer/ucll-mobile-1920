@@ -1,3 +1,4 @@
+import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:flutter/material.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -7,6 +8,7 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
+  String username, firstname, lastname, IBAN, password, password2;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class _RegisterFormState extends State<RegisterForm> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(10,0,10,10),
                 child: TextFormField(
+                  onChanged: (String value) {username = value;},
                   maxLines: null,
                   style: TextStyle(
                     color: Colors.white,
@@ -51,6 +54,7 @@ class _RegisterFormState extends State<RegisterForm> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(10,0,10,10),
                 child: TextFormField(
+                  onChanged: (String value) {firstname = value;},
                   maxLines: null,
                   style: TextStyle(
                     color: Colors.white,
@@ -79,6 +83,7 @@ class _RegisterFormState extends State<RegisterForm> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(10,0,10,10),
                 child: TextFormField(
+                  onChanged: (String value) {lastname = value;},
                   maxLines: null,
                   style: TextStyle(
                     color: Colors.white,
@@ -107,6 +112,7 @@ class _RegisterFormState extends State<RegisterForm> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(10,0,10,10),
                 child: TextFormField(
+                  onChanged: (String value) {IBAN = value;},
                   maxLines: null,
                   style: TextStyle(
                     color: Colors.white,
@@ -135,6 +141,7 @@ class _RegisterFormState extends State<RegisterForm> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(10,0,10,10),
                 child: TextFormField(
+                  onChanged: (String value) {password = value;},
                   obscureText: true,
                   maxLines: null,
                   style: TextStyle(
@@ -164,6 +171,7 @@ class _RegisterFormState extends State<RegisterForm> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(10,0,10,10),
                 child: TextFormField(
+                  onChanged: (String value) {password2 = value;},
                   obscureText: true,
                   maxLines: null,
                   style: TextStyle(
@@ -172,6 +180,9 @@ class _RegisterFormState extends State<RegisterForm> {
                   validator: (value) {
                     if (value.isEmpty) {
                       return "Dit veld mag niet leeg zijn!";
+                    }
+                    if(value != password){
+                      return "Wachtwoorden komen niet overeen";
                     }
                     return null;
                   },
@@ -195,11 +206,14 @@ class _RegisterFormState extends State<RegisterForm> {
                 child: RaisedButton(
                     onPressed: () {
                       if(_formKey.currentState.validate()){
-                        //registreer code
+                        HttpService.register(username, firstname, lastname, IBAN, password)
+                            .then((val) {
+                          Navigator.pop(context);
+                        });
                       }
                     },
                     color: Colors.amber,
-                    child: Text('Inloggen',
+                    child: Text('Registreren',
                         style: TextStyle(
                           color: Color(0xff00285A),
                         )
