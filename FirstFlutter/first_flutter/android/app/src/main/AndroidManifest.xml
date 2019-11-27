@@ -16,6 +16,9 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="Cleverdivide"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAnu4364KgeBd9N2I6Bkj_kIa6iRduX1Qg"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -36,4 +39,5 @@
             </intent-filter>
         </activity>
     </application>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 </manifest>

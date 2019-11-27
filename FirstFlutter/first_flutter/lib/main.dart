@@ -1,6 +1,6 @@
 import 'package:Cleverdivide/pages/ParticipantList.dart';
 import 'package:Cleverdivide/pages/loadingParticipants.dart';
-
+import 'package:Cleverdivide/pages/loadingEvent.dart';
 import 'pages/addEvent.dart';
 import 'pages/loading.dart';
 import 'pages/loginScreen.dart';
@@ -21,5 +21,6 @@ void main() => runApp(MaterialApp(
     "/register" : (context) => RegisterScreen(),
     "/participants" : (context) => ParticipantList(),
     "/loadingparticipants" : (context) => LoadingParticipants(),
+    "/loadingevent" : (context) => LoadingEvent(),
   },
 ));

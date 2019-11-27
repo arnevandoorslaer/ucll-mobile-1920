@@ -65,8 +65,29 @@ class HttpService {
     }
   }
 
+  static Future<String> getUsername(int userId) async {
+    Response res = await get("http://www.arnevandoorslaer.ga:8086/user/$userId/username");
+
+    if (res.statusCode == 200) {
+      dynamic body = jsonDecode(res.body);
+
+      double cost = body;
+
+      print(cost.toString());
+      return cost.toString();
+    } else {
+      throw "Can't get nickname of user with id $userId.";
+    }
+  }
+
   static Future<bool> login(int userid, String hashedPassword) async {
-    Response res = await get("http://www.arnevandoorslaer.ga:8086/user/$userid/login");
+
+    String username = "";
+    HttpService.getUsername(userid).then((res) => username = res);
+
+    Response res = await get("http://www.arnevandoorslaer.ga:8086/user/login");
+
+    // TODO fix backend login
 
     if (res.statusCode == 200) {
       dynamic body = jsonDecode(res.body);

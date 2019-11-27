@@ -5,6 +5,7 @@ import 'package:Cleverdivide/classes/user.dart';
 import '../widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../classes/http_service.dart';
 
 import 'home.dart';
 
