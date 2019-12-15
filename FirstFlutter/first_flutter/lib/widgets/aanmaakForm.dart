@@ -1,3 +1,4 @@
+import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:Cleverdivide/widgets/listHeader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -10,9 +11,33 @@ class AanmaakForm extends StatefulWidget {
 }
 
 class _AanmaakFormState extends State<AanmaakForm> {
+  List participants;
+
+
+  @override
+  void initState() {
+    super.initState();
+    participants = [];
+
+  }
 
   final _formKey = GlobalKey<FormState>();
   DateTime start = DateTime.now(), end = DateTime.now();
+
+
+  final eventNameController = TextEditingController();
+  final locationController = TextEditingController();
+  final infoController = TextEditingController();
+
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    eventNameController.dispose();
+    locationController.dispose();
+    infoController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +51,13 @@ class _AanmaakFormState extends State<AanmaakForm> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10,0,10,10),
                   child: TextFormField(
+                    controller: eventNameController,
                     maxLines: null,
                     style: TextStyle(
                       color: Colors.white,
                     ),
                     validator: (value) {
-                      if (value.isEmpty) {
+                      if (value.trim().isEmpty || value == null) {
                         return "Dit veld mag niet leeg zijn!";
                       }
                       return null;
@@ -55,12 +81,13 @@ class _AanmaakFormState extends State<AanmaakForm> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10,0,10,10),
                   child: TextFormField(
+                    controller: locationController,
                     maxLines: null,
                     style: TextStyle(
                       color: Colors.white,
                     ),
                     validator: (value) {
-                      if (value.isEmpty) {
+                      if (value.trim().isEmpty || value == null) {
                         return "Dit veld mag niet leeg zijn!";
                       }
                       return null;
@@ -103,13 +130,11 @@ class _AanmaakFormState extends State<AanmaakForm> {
                                   onChanged: (date) {
                                     setState(() {
                                       this.start = date;
-                                      print(start);
                                     });
                                   },
                                   onConfirm: (date) {
                                     setState(() {
                                       this.start = date;
-                                      print(start);
                                     });
                                   },
                                   currentTime: DateTime.now(),
@@ -147,13 +172,11 @@ class _AanmaakFormState extends State<AanmaakForm> {
                                   onChanged: (date) {
                                     setState(() {
                                       this.end = date;
-                                      print(end);
                                     });
                                   },
                                   onConfirm: (date) {
                                     setState(() {
                                       this.end = date;
-                                      print(end);
                                     });
                                   },
                                   currentTime: DateTime.now(),
@@ -179,35 +202,39 @@ class _AanmaakFormState extends State<AanmaakForm> {
                       dataSource: [
                         {
                           "display": "Arthur Joppart",
-                          "value": "BelgianNoise",
+                          "value": 2,
                         },
                         {
                           "display": "Styn Toelemans",
-                          "value": "Lemonade",
+                          "value": 1,
                         },
                         {
                           "display": "Arne Vandoorslaer",
-                          "value": "ArneFPS",
+                          "value": 3,
                         },
                         {
-                          "display": "Guy Spenge De Wit",
-                          "value": "Spenge",
+                          "display": "Ruben Claes",
+                          "value": 4,
                         }
                       ],
                       textField: 'display',
                       valueField: 'value',
                       filterable: true,
                       required: true,
-                      value: null,
+                      value: participants,
                       onSaved: (value) {
-                        print('The value is $value');
-                      }
+                        if (value == null) return;
+                        setState(() {
+                          participants = value;
+                        });
+                      },
                   ),
                 ),
 
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10,0,10,10),
                   child: TextFormField(
+                    controller: infoController,
                     maxLines: null,
                     style: TextStyle(
                       color: Colors.white,
@@ -238,15 +265,22 @@ class _AanmaakFormState extends State<AanmaakForm> {
                   child: RaisedButton(
                       onPressed: () {
                         if(_formKey.currentState.validate()){
-                          Scaffold.of(context).
-                          showSnackBar(SnackBar(content: Text('Processing Data')));
+                          _formKey.currentState.save();
+
+                          var formatter = new DateFormat('dd-MM-yyyy HH:mm:ss');
+                          String startDate = formatter.format(start);
+                          String endDate = formatter.format(end);
+
+                          Scaffold.of(context).showSnackBar(SnackBar(content: Text('Evenement wordt toegevoegd...')));
+
+                          HttpService.addEvent(eventNameController.text, startDate, endDate, locationController.text, participants, infoController.text).then((bool result) => Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false,));
                         }
                       },
                       color: Colors.amber,
                       child: Text('Toevoegen',
-                        style: TextStyle(
-                          color: Color(0xff00285A),
-                        )
+                          style: TextStyle(
+                            color: Color(0xff00285A),
+                          )
                       )
                   ),
                 ),

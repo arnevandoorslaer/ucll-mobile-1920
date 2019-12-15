@@ -1,9 +1,6 @@
 import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:Cleverdivide/classes/event.dart';
 import 'package:Cleverdivide/classes/user.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:crypto/crypto.dart';
 
@@ -132,6 +129,43 @@ class HttpService {
       return cost.toString();
     } else {
       throw "Can't get cost of event with id $eventid.";
+    }
+  }
+
+  /*
+  static void deleteEvent(int eventid) async {
+    Response res = await get("http://www.arnevandoorslaer.ga:8086/event/del/$eventid");
+
+    if (res.statusCode != 200) {
+      throw "Failed to delete event with id $eventid";
+    }
+  }*/
+  
+  static Future<bool> addEvent(String name, String startDate, String endDate, String location, List participants, String info) async {
+    String body = "{\"eventName\":\"$name\",\"startDate\":\"$startDate\",\"endDate\":\"$endDate\",\"location\":\"$location\",\"participants\":[";
+    for (int p in participants){
+      body += "$p,";
+    }
+    body = body.substring(0, body.length - 1);
+    body += "],\"extraInfo\":\"$info\",\"picPath\":\"virinal.jpg\"}";
+
+    print(body);
+
+    var res = await post("http://www.arnevandoorslaer.ga:8086/event/add", body: body, headers: {
+    "content-type" : "application/json",
+    "accept" : "application/json",
+    },);
+
+    print('Response status: ${res.statusCode}');
+    print('Response body: ${res.body}');
+
+    if (res.statusCode == 201) {
+      print("Adding event succesful.");
+      return true;
+    }
+    else {
+      print("Failed to add event.");
+      return false;
     }
   }
 }

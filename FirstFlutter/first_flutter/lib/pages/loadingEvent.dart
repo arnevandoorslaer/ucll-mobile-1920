@@ -21,7 +21,17 @@ class _LoadingEventState extends State<LoadingEvent> {
     event = data['event'];
 
     final query = event.location;
-    var addresses = await Geocoder.local.findAddressesFromQuery(query);
+    var addresses = await Geocoder.local.findAddressesFromQuery("Grote Markt, Leuven, Belgium"); //default
+
+    try{
+      var address = await Geocoder.local.findAddressesFromQuery(query);
+      addresses = address;
+
+
+    }catch(exception){
+      print("Locatie lowkey ni gevonden, dus pakt da de default gezet is");
+    }
+
     var first = addresses.first;
     Coordinates coordinates = first.coordinates;
 
