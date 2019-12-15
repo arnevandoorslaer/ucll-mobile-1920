@@ -132,15 +132,18 @@ class HttpService {
     }
   }
 
-  /*
-  static void deleteEvent(int eventid) async {
-    Response res = await get("http://www.arnevandoorslaer.ga:8086/event/del/$eventid");
+  static Future<bool> deleteEvent(int eventId) async {
+    var res = await post("http://www.arnevandoorslaer.ga:8086/event/del/$eventId");
 
-    if (res.statusCode != 200) {
-      throw "Failed to delete event with id $eventid";
+    if (res.statusCode == 200) {
+      print("Deleting event succesful.");
+      return true;
+    }else {
+      print("Failed to delete event.");
+      return false;
     }
-  }*/
-  
+  }
+
   static Future<bool> addEvent(String name, String startDate, String endDate, String location, List participants, String info) async {
     String body = "{\"eventName\":\"$name\",\"startDate\":\"$startDate\",\"endDate\":\"$endDate\",\"location\":\"$location\",\"participants\":[";
     for (int p in participants){
