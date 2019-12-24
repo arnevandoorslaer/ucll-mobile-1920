@@ -7,7 +7,6 @@ import 'pages/loginScreen.dart';
 import 'pages/registerScreen.dart';
 import 'package:flutter/material.dart';
 import 'pages/eventScreen.dart';
-
 import 'pages/home.dart';
 
 void main() => runApp(MaterialApp(
@@ -23,4 +22,9 @@ void main() => runApp(MaterialApp(
     "/loadingparticipants" : (context) => LoadingParticipants(),
     "/loadingevent" : (context) => LoadingEvent(),
   },
+  theme: ThemeData(
+    brightness: Brightness.dark,
+    accentColor: Colors.amber,
+    toggleableActiveColor: Colors.amber,
+  ),
 ));

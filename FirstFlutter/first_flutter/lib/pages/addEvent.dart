@@ -1,11 +1,5 @@
 import 'package:Cleverdivide/widgets/aanmaakForm.dart';
 import 'package:flutter/material.dart';
-
-import "../classes/event.dart";
-import '../classes/tempTestData.dart';
-import '../classes/user.dart';
-import '../widgets/listHeader.dart';
-import '../widgets/eventListWidget.dart';
 import '../widgets/appbar.dart';
 
 class AddEvent extends StatefulWidget {

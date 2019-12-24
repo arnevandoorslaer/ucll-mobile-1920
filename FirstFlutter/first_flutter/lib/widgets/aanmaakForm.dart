@@ -1,9 +1,9 @@
 import 'package:Cleverdivide/classes/http_service.dart';
-import 'package:Cleverdivide/widgets/listHeader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_multiselect/flutter_multiselect.dart';
+import 'package:Cleverdivide/classes/user.dart';
+import 'package:Cleverdivide/widgets/multiSelect.dart';
 
 class AanmaakForm extends StatefulWidget {
   @override
@@ -11,19 +11,19 @@ class AanmaakForm extends StatefulWidget {
 }
 
 class _AanmaakFormState extends State<AanmaakForm> {
-  List participants;
+  Map data = {};
+  List<User> users = [];
+  List participants = [];
 
+  List usersMultiSelect = [];
 
   @override
   void initState() {
     super.initState();
-    participants = [];
-
   }
 
   final _formKey = GlobalKey<FormState>();
   DateTime start = DateTime.now(), end = DateTime.now();
-
 
   final eventNameController = TextEditingController();
   final locationController = TextEditingController();
@@ -43,6 +43,15 @@ class _AanmaakFormState extends State<AanmaakForm> {
 
   @override
   Widget build(BuildContext context) {
+    data = ModalRoute.of(context).settings.arguments;
+    users = data['participants'];
+
+    List kweeni = [];
+    for (User p in users){
+      kweeni.add({"display": p.getName(), "value": p.getId()});
+    }
+    usersMultiSelect = kweeni;
+
     return ListView(
       children: <Widget>[
         Form(
@@ -144,7 +153,11 @@ class _AanmaakFormState extends State<AanmaakForm> {
                             },
                             icon: Icon(Icons.calendar_today,
                               color: Color(0xff00285A),),
-                            label: Text("Wijzig"),
+                            label: Text("Wijzig",
+                              style: TextStyle(
+                              color: Color(0xff00285A),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -186,7 +199,11 @@ class _AanmaakFormState extends State<AanmaakForm> {
                             },
                             icon: Icon(Icons.calendar_today,
                               color: Color(0xff00285A),),
-                            label: Text("Wijzig"),
+                            label: Text("Wijzig",
+                            style: TextStyle(
+                              color: Color(0xff00285A),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -201,24 +218,27 @@ class _AanmaakFormState extends State<AanmaakForm> {
                       hintText: "Druk hier om mensen toe te voegen...",
                       titleText: "Selecteer deelnemers: ",
                       errorText: 'Selecteer deelnemers: ',
-                      dataSource: [
-                        {
-                          "display": "Arthur Joppart",
-                          "value": 2,
-                        },
-                        {
-                          "display": "Styn Toelemans",
-                          "value": 1,
-                        },
-                        {
-                          "display": "Arne Vandoorslaer",
-                          "value": 3,
-                        },
-                        {
-                          "display": "Ruben Claes",
-                          "value": 4,
-                        }
-                      ],
+                      dataSource: this.usersMultiSelect,
+                      textField: 'display',
+                      valueField: 'value',
+                      required: true,
+                      value: participants,
+                      onSaved: (value) {
+                        if (value == null) return;
+                        setState(() {
+                          participants = value;
+                        });
+                      },
+                    ),
+
+
+                  /*
+                  MultiSelect(
+                      autovalidate: false,
+                      hintText: "Druk hier om mensen toe te voegen...",
+                      titleText: "Selecteer deelnemers: ",
+                      errorText: 'Selecteer deelnemers: ',
+                      dataSource: this.usersMultiSelect,
                       textField: 'display',
                       valueField: 'value',
                       filterable: true,
@@ -231,6 +251,7 @@ class _AanmaakFormState extends State<AanmaakForm> {
                         });
                       },
                   ),
+                  */
                 ),
 
                 Padding(

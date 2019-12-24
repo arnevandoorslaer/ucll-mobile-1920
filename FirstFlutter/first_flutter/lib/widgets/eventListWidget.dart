@@ -12,7 +12,7 @@ class EventList extends StatefulWidget {
 }
 
 class _EventListState extends State<EventList> {
-  // temp data
+
   List<Event> events;
 
   _EventListState({this.events});

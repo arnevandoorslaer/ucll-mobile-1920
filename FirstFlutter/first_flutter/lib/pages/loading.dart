@@ -1,13 +1,10 @@
 import 'package:Cleverdivide/classes/event.dart';
 import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:Cleverdivide/classes/user.dart';
-
 import '../widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../classes/http_service.dart';
-
-import 'home.dart';
 
 class Loading extends StatefulWidget {
   @override
@@ -16,18 +13,24 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
 
-  void getData() async{
+  List participants;
 
+  void getParticipants() async{
+    HttpService.getUsers().then((List<User> result) =>
+    getEvents(result)).catchError(throw "Failed to get participants");
+  }
+
+  void getEvents(List participants) async{
     HttpService.getEvents().then((List<Event> result) =>
         Navigator.pushReplacementNamed(context, '/home',
-            arguments: {'events': result}))
+            arguments: {'events': result, 'participants': participants}))
         .catchError(throw "met kindern");
   }
 
   @override
   void initState() {
     super.initState();
-    getData();
+    getParticipants();
   }
 
   @override
