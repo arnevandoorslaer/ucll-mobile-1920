@@ -28,6 +28,7 @@ class _AanmaakFormState extends State<AanmaakForm> {
   final eventNameController = TextEditingController();
   final locationController = TextEditingController();
   final infoController = TextEditingController();
+  final pictureController = TextEditingController();
 
 
   @override
@@ -36,6 +37,7 @@ class _AanmaakFormState extends State<AanmaakForm> {
     eventNameController.dispose();
     locationController.dispose();
     infoController.dispose();
+    pictureController.dispose();
     super.dispose();
   }
 
@@ -261,6 +263,36 @@ class _AanmaakFormState extends State<AanmaakForm> {
                 ),
 
                 Padding(
+                  padding: const EdgeInsets.fromLTRB(10,0,10,10),
+                  child: TextFormField(
+                    controller: pictureController,
+                    maxLines: null,
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    /*
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "Dit veld mag niet leeg zijn!";
+                      }
+                      return null;
+                    },*/
+                    decoration: InputDecoration(
+                      labelText: 'Link afbeelding: ',
+                      labelStyle: TextStyle(
+                        color: Colors.amber,
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.amber)
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.amber)
+                      ),
+                    ),
+                  ),
+                ),
+
+                Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
                   child: RaisedButton(
                       onPressed: () {
@@ -273,7 +305,7 @@ class _AanmaakFormState extends State<AanmaakForm> {
 
                           Scaffold.of(context).showSnackBar(SnackBar(content: Text('Evenement wordt toegevoegd...')));
 
-                          HttpService.addEvent(eventNameController.text, startDate, endDate, locationController.text, participants, infoController.text).then((bool result) => Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false,));
+                          HttpService.addEvent(eventNameController.text, startDate, endDate, locationController.text, participants, infoController.text, pictureController.text).then((bool result) => Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false,));
                         }
                       },
                       color: Colors.amber,

@@ -34,8 +34,9 @@ class _EventListState extends State<EventList> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                    child: Image(
-                      image: AssetImage("assets/${event.picPath}"),
+                    child: new FadeInImage(
+                        placeholder: NetworkImage('https://i.imgur.com/WqRXc6V.jpg'),
+                        image: NetworkImage("${event.picPath}"),
                       width: 80,
                       height: 80,
                     ),

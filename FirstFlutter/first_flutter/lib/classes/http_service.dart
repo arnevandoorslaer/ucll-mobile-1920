@@ -144,15 +144,21 @@ class HttpService {
     }
   }
 
-  static Future<bool> addEvent(String name, String startDate, String endDate, String location, List participants, String info) async {
+  static Future<bool> addEvent(String name, String startDate, String endDate, String location, List participants, String info, String link) async {
     String body = "{\"eventName\":\"$name\",\"startDate\":\"$startDate\",\"endDate\":\"$endDate\",\"location\":\"$location\",\"participants\":[";
     for (int p in participants){
       body += "$p,";
     }
     body = body.substring(0, body.length - 1);
-    body += "],\"extraInfo\":\"$info\",\"picPath\":\"virinal.jpg\"}";
+    body += "],\"extraInfo\":\"$info\",";
 
-    print(body);
+    if (link.trim().isNotEmpty){
+    body += "\"picPath\":\"$link\"}";
+    }else{
+      body += "\"picPath\":\"https://i.imgur.com/WqRXc6V.jpg\"}";
+    }
+
+    print("request body: " + body);
 
     var res = await post("http://www.arnevandoorslaer.ga:8086/event/add", body: body, headers: {
     "content-type" : "application/json",

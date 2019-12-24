@@ -89,8 +89,11 @@ class _EventScreenState extends State<EventScreen> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
-                background: new Image.asset("assets/${event.picPath}",
-                    fit: BoxFit.cover),
+                background: new FadeInImage(
+                    placeholder: NetworkImage('https://i.imgur.com/WqRXc6V.jpg'),
+                    image: NetworkImage("${event.picPath}"),
+                    fit: BoxFit.cover
+                ),
               ),
             ),
 
