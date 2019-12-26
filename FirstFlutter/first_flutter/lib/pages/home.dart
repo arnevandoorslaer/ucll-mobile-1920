@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import "../classes/user.dart";
 import "../classes/event.dart";

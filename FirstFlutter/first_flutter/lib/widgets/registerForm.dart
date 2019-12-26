@@ -7,23 +7,47 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
+  String password, password2;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   final _formKey = GlobalKey<FormState>();
-  String username, firstname, lastname, IBAN, password, password2;
+
+  final usernameController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final ibanController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    ibanController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
+
         Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Padding(
+
+              Padding( // USERNAME----------------------------------------------
                 padding: const EdgeInsets.fromLTRB(10,0,10,10),
                 child: TextFormField(
-                  onChanged: (String value) {username = value;},
-                  maxLines: null,
+                  controller: usernameController,
+                  maxLines: 1,
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -32,7 +56,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       return "Dit veld mag niet leeg zijn!";
                     }
                     if(value.contains(" ")){
-                      return "Geen spaties bitch!";
+                      return "Gebruikersnaam mag geen spaties bevatten!";
                     }
                     return null;
                   },
@@ -51,11 +75,11 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
               ),
 
-              Padding(
+              Padding( // FIRST NAME--------------------------------------------
                 padding: const EdgeInsets.fromLTRB(10,0,10,10),
                 child: TextFormField(
-                  onChanged: (String value) {firstname = value;},
-                  maxLines: null,
+                  controller: firstNameController,
+                  maxLines: 1,
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -80,11 +104,11 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
               ),
 
-              Padding(
+              Padding( // LAST NAME---------------------------------------------
                 padding: const EdgeInsets.fromLTRB(10,0,10,10),
                 child: TextFormField(
-                  onChanged: (String value) {lastname = value;},
-                  maxLines: null,
+                  controller: lastNameController,
+                  maxLines: 1,
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -109,11 +133,11 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
               ),
 
-              Padding(
+              Padding( // IBAN--------------------------------------------------
                 padding: const EdgeInsets.fromLTRB(10,0,10,10),
                 child: TextFormField(
-                  onChanged: (String value) {IBAN = value;},
-                  maxLines: null,
+                  controller: ibanController,
+                  maxLines: 1,
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -138,12 +162,13 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
               ),
 
-              Padding(
+              Padding( // PASSWORD----------------------------------------------
                 padding: const EdgeInsets.fromLTRB(10,0,10,10),
                 child: TextFormField(
+                  controller: passwordController,
                   onChanged: (String value) {password = value;},
                   obscureText: true,
-                  maxLines: null,
+                  maxLines: 1,
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -154,7 +179,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    labelText: 'Paswoord: ',
+                    labelText: 'Wachtwoord: ',
                     labelStyle: TextStyle(
                       color: Colors.amber,
                     ),
@@ -168,12 +193,12 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
               ),
 
-              Padding(
+              Padding( // PASSWORD REPEAT---------------------------------------
                 padding: const EdgeInsets.fromLTRB(10,0,10,10),
                 child: TextFormField(
                   onChanged: (String value) {password2 = value;},
                   obscureText: true,
-                  maxLines: null,
+                  maxLines: 1,
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -182,12 +207,12 @@ class _RegisterFormState extends State<RegisterForm> {
                       return "Dit veld mag niet leeg zijn!";
                     }
                     if(value != password){
-                      return "Wachtwoorden komen niet overeen";
+                      return "Wachtwoorden komen niet overeen!";
                     }
                     return null;
                   },
                   decoration: InputDecoration(
-                    labelText: 'Herhaal paswoord: ',
+                    labelText: 'Herhaal wachtwoord: ',
                     labelStyle: TextStyle(
                       color: Colors.amber,
                     ),
@@ -201,13 +226,17 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
               ),
 
-              Padding(
+              Padding( // REGISTER BUTTON---------------------------------------
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
                 child: RaisedButton(
                     onPressed: () {
                       if(_formKey.currentState.validate()){
-                        HttpService.register(username, firstname, lastname, IBAN, password)
-                            .then((val) {
+                        _formKey.currentState.save();
+
+                        Scaffold.of(context).showSnackBar(SnackBar(content: Text('Bezig met registreren...')));
+
+                        HttpService.register(usernameController.text, firstNameController.text, lastNameController.text, ibanController.text, passwordController.text)
+                            .then((bool value) {
                           Navigator.pop(context);
                         });
                       }
@@ -221,11 +250,11 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
               ),
 
-
             ],
           ),
         )
       ],
+
     );
   }
 }

@@ -8,10 +8,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  String username = "kk";
-  String password = "kk";
+
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +28,18 @@ class _LoginScreenState extends State<LoginScreen> {
         appBar: CustomAppBarWidget(text: "Login",),
         body:ListView(
           children: <Widget>[
+
             Form(
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Padding(
+
+                  Padding( // USERNAME------------------------------------------
                     padding: const EdgeInsets.fromLTRB(10,0,10,10),
                     child: TextFormField(
-                      onChanged: (String value) {username = value;},
-                      maxLines: null,
+                      controller: usernameController,
+                      maxLines: 1,
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -55,12 +64,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
 
-                  Padding(
+                  Padding( // PASSWORD------------------------------------------
                     padding: const EdgeInsets.fromLTRB(10,0,10,10),
                     child: TextFormField(
-                      onChanged: (String value) {password = value;},
+                      controller: passwordController,
                       obscureText: true,
-                      maxLines: null,
+                      maxLines: 1,
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -85,19 +94,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
 
-                  Padding(
+                  Padding( // LOGIN BUTTON--------------------------------------
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
                     child: RaisedButton(
                         onPressed: () {
                             if (_formKey.currentState.validate()) {
-                              HttpService.login(username, password).then((val){
-                                _scaffoldKey.currentState.
-                                showSnackBar(
-                                    SnackBar(content: Text('Ingelogd makker')));
-                              })
-                              .catchError((err){
-                                _scaffoldKey.currentState
-                                    .showSnackBar(SnackBar(content: Text('$err')));
+                              _formKey.currentState.save();
+
+                              _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('Bezig met inloggen...')));
+
+                              HttpService.login(usernameController.text, passwordController.text)
+                                  .then((bool result) =>
+
+                                  Navigator.pushNamed(context, '/'))
+                                  .catchError((err){_scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('Fout bij inloggen')));
                               });
                             }
                         },
@@ -125,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     endIndent: 30,
                   ),
 
-                  Padding(
+                  Padding( // REGISTER BUTTON-----------------------------------
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
                     child: RaisedButton(
                         onPressed: () {

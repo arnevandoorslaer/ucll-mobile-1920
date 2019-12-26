@@ -98,8 +98,8 @@ class HttpService {
       throw "Can't get nickname of user with id $userId";
     }
   }
-  static Future<bool> register(String username, String firstname, String lastname,
-      String IBAN, String password) async {
+
+  static Future<bool> register(String username, String firstname, String lastname, String IBAN, String password) async {
     var hashed = sha512.convert(utf8.encode(password));
     var bodyy = "{\"username\" : \"$username\", \"firstname\" : \"$firstname\", "
         "\"lastname\" : \"$lastname\", \"iban\" : \"$IBAN\",  \"password\" : \"$hashed\" }";
@@ -111,10 +111,10 @@ class HttpService {
       throw Exception("Failed to register user");
     }
   }
+
   static Future<bool> login(String username, String password) async {
     var hashed = sha512.convert(utf8.encode(password));
     var bodyy = "{\"username\" : \"$username\", \"password\" : \"$hashed\"}";
-    print("$hashed");
     Response res = await post(
         "http://www.arnevandoorslaer.ga:8086/user/login", body: bodyy);
 
