@@ -22,7 +22,7 @@ class HttpService {
       print(users);
       return users;
     } else {
-      throw "Can't get users.";
+      throw "Can't get users";
     }
   }
   static Future<List<User>> getUsers() async {
@@ -41,7 +41,27 @@ class HttpService {
       print(users);
       return users;
     } else {
-      throw "Can't get users.";
+      throw "Can't get users";
+    }
+  }
+
+  static void addParticipant(int userId, int eventId) async{
+    var res = await post("http://www.arnevandoorslaer.ga:8086/event/$eventId/participants/add/$userId");
+
+    if (res.statusCode == 201) {
+      print("Added participant succesfully to event");
+    }else {
+      print("Failed to add participant to event");
+    }
+  }
+
+  static void deleteParticipant(int userId, int eventId) async{
+    var res = await post("http://www.arnevandoorslaer.ga:8086/event/$eventId/participants/del/$userId");
+
+    if (res.statusCode == 201) {
+    print("Deleted participant succesfully from event");
+    }else {
+    print("Failed to delete participant from event");
     }
   }
 
@@ -60,7 +80,7 @@ class HttpService {
       print(events);
       return events;
     } else {
-      throw "Can't get users.";
+      throw "Can't get users";
     }
   }
 
@@ -75,7 +95,7 @@ class HttpService {
       print(cost.toString());
       return cost.toString();
     } else {
-      throw "Can't get nickname of user with id $userId.";
+      throw "Can't get nickname of user with id $userId";
     }
   }
   static Future<bool> register(String username, String firstname, String lastname,
@@ -88,7 +108,7 @@ class HttpService {
     if (res.statusCode == 201) {
       return true;
     }else{
-      throw Exception("Kan niet registreren!");
+      throw Exception("Failed to register user");
     }
   }
   static Future<bool> login(String username, String password) async {
@@ -136,10 +156,10 @@ class HttpService {
     var res = await post("http://www.arnevandoorslaer.ga:8086/event/del/$eventId");
 
     if (res.statusCode == 200) {
-      print("Deleting event succesful.");
+      print("Deleting event succesful");
       return true;
     }else {
-      print("Failed to delete event.");
+      print("Failed to delete event");
       return false;
     }
   }
@@ -169,11 +189,11 @@ class HttpService {
     print('Response body: ${res.body}');
 
     if (res.statusCode == 201) {
-      print("Adding event succesful.");
+      print("Adding event succesful");
       return true;
     }
     else {
-      print("Failed to add event.");
+      print("Failed to add event");
       return false;
     }
   }

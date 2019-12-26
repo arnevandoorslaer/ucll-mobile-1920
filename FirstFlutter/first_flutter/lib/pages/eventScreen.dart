@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:Cleverdivide/classes/http_service.dart';
+import 'package:Cleverdivide/widgets/multiSelect.dart';
 import 'package:flutter/material.dart';
 import "../classes/event.dart";
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -283,9 +284,10 @@ class _EventScreenState extends State<EventScreen> {
                           ),
                         ),
 
-
                         RaisedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/loadingaddparticipants', arguments: {'event': event, 'id': event.eventId});
+                          },
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                             child: Icon(Icons.add, color: Color(0xff00285A), size: 30,),

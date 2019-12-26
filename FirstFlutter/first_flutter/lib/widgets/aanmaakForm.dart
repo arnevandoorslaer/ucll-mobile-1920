@@ -59,7 +59,8 @@ class _AanmaakFormState extends State<AanmaakForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Padding(
+
+                Padding(//EVENT NAME--------------------------------------------
                   padding: const EdgeInsets.fromLTRB(10,0,10,10),
                   child: TextFormField(
                     controller: eventNameController,
@@ -88,8 +89,7 @@ class _AanmaakFormState extends State<AanmaakForm> {
                   ),
                 ),
 
-
-                Padding(
+                Padding(// LOCATION---------------------------------------------
                   padding: const EdgeInsets.fromLTRB(10,0,10,10),
                   child: TextFormField(
                     controller: locationController,
@@ -118,16 +118,26 @@ class _AanmaakFormState extends State<AanmaakForm> {
                   ),
                 ),
 
-                Padding(  // START START START START START
+                Padding(// START DATE-------------------------------------------
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("Start: ",
-                          style: TextStyle(color: Colors.amber)
+
+                      Row(
+                        children: <Widget>[
+                          Text("Start: ",
+                            style: TextStyle(
+                              color: Colors.amber,
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(DateFormat('dd-MM-yyyy  HH:mm').format(start),
+                              style: TextStyle(color: Colors.white)
+                          ),
+                        ],
                       ),
-                      Text(DateFormat('dd-MM-yyyy  HH:mm').format(start),
-                          style: TextStyle(color: Colors.white)
-                      ),
+
                       Padding(
                         padding: const EdgeInsets.fromLTRB(25, 0, 0, 5),
                         child: ButtonTheme(
@@ -136,7 +146,8 @@ class _AanmaakFormState extends State<AanmaakForm> {
                           child: RaisedButton.icon(
                             color: Colors.amber,
                             onPressed: () {
-                              DatePicker.showDateTimePicker(context,
+                              DatePicker.showDateTimePicker(
+                                  context,
                                   showTitleActions: true,
                                   onChanged: (date) {
                                     setState(() {
@@ -161,19 +172,31 @@ class _AanmaakFormState extends State<AanmaakForm> {
                           ),
                         ),
                       ),
+
                     ],
                   ),
                 ),
-                Padding(  // END END END END END END END END END
+
+                Padding(// END DATE---------------------------------------------
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("Einde: ",
-                          style: TextStyle(color: Colors.amber)
+
+                      Row(
+                        children: <Widget>[
+                          Text("Einde: ",
+                              style: TextStyle(
+                                color: Colors.amber,
+                                fontSize: 16,
+                              )
+                          ),
+                          Text(DateFormat('dd-MM-yyyy  HH:mm').format(end),
+                              style: TextStyle(color: Colors.white)
+                          ),
+                        ],
                       ),
-                      Text(DateFormat('dd-MM-yyyy  HH:mm').format(end),
-                          style: TextStyle(color: Colors.white)
-                      ),
+
                       Padding(
                         padding: const EdgeInsets.fromLTRB(20, 0, 0, 5),
                         child: ButtonTheme(
@@ -207,11 +230,12 @@ class _AanmaakFormState extends State<AanmaakForm> {
                           ),
                         ),
                       ),
+
                     ],
                   ),
                 ),
 
-                Padding(
+                Padding( // PARTICIPANTS----------------------------------------
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
                   child: MultiSelect(
                       autovalidate: false,
@@ -230,31 +254,9 @@ class _AanmaakFormState extends State<AanmaakForm> {
                         });
                       },
                     ),
-
-
-                  /*
-                  MultiSelect(
-                      autovalidate: false,
-                      hintText: "Druk hier om mensen toe te voegen...",
-                      titleText: "Selecteer deelnemers: ",
-                      errorText: 'Selecteer deelnemers: ',
-                      dataSource: this.usersMultiSelect,
-                      textField: 'display',
-                      valueField: 'value',
-                      filterable: true,
-                      required: true,
-                      value: participants,
-                      onSaved: (value) {
-                        if (value == null) return;
-                        setState(() {
-                          participants = value;
-                        });
-                      },
-                  ),
-                  */
                 ),
 
-                Padding(
+                Padding( // INFO------------------------------------------------
                   padding: const EdgeInsets.fromLTRB(10,0,10,10),
                   child: TextFormField(
                     controller: infoController,
@@ -283,7 +285,7 @@ class _AanmaakFormState extends State<AanmaakForm> {
                   ),
                 ),
 
-                Padding(
+                Padding( // IMAGE-----------------------------------------------
                   padding: const EdgeInsets.fromLTRB(10,0,10,10),
                   child: TextFormField(
                     controller: pictureController,
@@ -291,13 +293,6 @@ class _AanmaakFormState extends State<AanmaakForm> {
                     style: TextStyle(
                       color: Colors.white,
                     ),
-                    /*
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return "Dit veld mag niet leeg zijn!";
-                      }
-                      return null;
-                    },*/
                     decoration: InputDecoration(
                       labelText: 'Link afbeelding: ',
                       labelStyle: TextStyle(
@@ -313,30 +308,32 @@ class _AanmaakFormState extends State<AanmaakForm> {
                   ),
                 ),
 
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
-                  child: RaisedButton(
-                      onPressed: () {
-                        if(_formKey.currentState.validate()){
-                          _formKey.currentState.save();
+                Padding( // ADD BUTTON----------------------------------------
+                  padding: const EdgeInsets.fromLTRB(10,0,10,0),
+                  child:
+                  RaisedButton(
+                    onPressed: () {
+                      if(_formKey.currentState.validate()){
+                        _formKey.currentState.save();
 
-                          var formatter = new DateFormat('dd-MM-yyyy HH:mm:ss');
-                          String startDate = formatter.format(start);
-                          String endDate = formatter.format(end);
+                        var formatter = new DateFormat('dd-MM-yyyy HH:mm:ss');
+                        String startDate = formatter.format(start);
+                        String endDate = formatter.format(end);
 
-                          Scaffold.of(context).showSnackBar(SnackBar(content: Text('Evenement wordt toegevoegd...')));
+                        Scaffold.of(context).showSnackBar(SnackBar(content: Text('Evenement wordt toegevoegd...')));
 
-                          HttpService.addEvent(eventNameController.text, startDate, endDate, locationController.text, participants, infoController.text, pictureController.text).then((bool result) => Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false,));
-                        }
+                        HttpService.addEvent(eventNameController.text, startDate, endDate, locationController.text, participants, infoController.text, pictureController.text).then((bool result) => Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false,));
+                      }
                       },
-                      color: Colors.amber,
-                      child: Text('Toevoegen',
-                          style: TextStyle(
-                            color: Color(0xff00285A),
-                          )
-                      )
+                    color: Colors.amber,
+                    child: Text('Toevoegen',
+                      style: TextStyle(
+                        color: Color(0xff00285A),
+                      ),
+                    ),
                   ),
                 ),
+
               ],
             )
         ),
