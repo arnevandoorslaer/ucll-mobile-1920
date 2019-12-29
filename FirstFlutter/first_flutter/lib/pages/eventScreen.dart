@@ -299,7 +299,7 @@ class _EventScreenState extends State<EventScreen> {
                     ),
                   ),
 
-                  Padding(// kost---------------------------------------------
+                  Padding(// kosten---------------------------------------------
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -327,7 +327,7 @@ class _EventScreenState extends State<EventScreen> {
                                       fontFamily: 'Helvetica',
                                       decoration: TextDecoration.none,
                                     ),),
-                                  Text("€ ${cost.toString()}",
+                                  Text("€ $cost",
                                     softWrap: true,
                                     style: TextStyle(
                                       fontSize: 19,
@@ -342,7 +342,9 @@ class _EventScreenState extends State<EventScreen> {
                           ),
                         ),
 
-                        RaisedButton(onPressed: () {},
+                        RaisedButton(onPressed: () {
+                          Navigator.pushNamed(context, '/addexpense', arguments: {'event': event});
+                        },
                           child:
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),

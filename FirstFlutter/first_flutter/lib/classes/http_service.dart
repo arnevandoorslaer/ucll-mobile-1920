@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:Cleverdivide/classes/event.dart';
 import 'package:Cleverdivide/classes/user.dart';
+import 'package:Cleverdivide/classes/expense.dart';
 import 'package:http/http.dart';
 import 'package:crypto/crypto.dart';
 
@@ -12,26 +13,44 @@ class HttpService {
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
 
-      // fromJson is belangrijk niet vergeten invullen bij nieuwe dingen guys
       List<User> users = body
           .map(
             (dynamic item) => User.fromJson(item),
       )
           .toList();
 
-      print(users);
+      users.sort((a, b) => a.getName().compareTo(b.getName()));
       return users;
     } else {
       throw "Can't get users";
     }
   }
+
+  static Future<List<Expense>> getExpenses(int eventId) async {
+    Response res = await get("http://www.arnevandoorslaer.ga:8086/event/$eventId/payments");
+
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+
+      List<Expense> expenses = body
+          .map(
+            (dynamic item) => Expense.fromJson(item),
+      )
+          .toList();
+
+      expenses.sort((a, b) => a.getAmount().compareTo(b.getAmount()));
+      return expenses;
+    } else {
+      throw "Failed to get expenses for certain event";
+    }
+  }
+
   static Future<List<User>> getUsers() async {
     Response res = await get("http://www.arnevandoorslaer.ga:8086/users");
 
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
 
-      // fromJson is belangrijk niet vergeten invullen bij nieuwe dingen guys
       List<User> users = body
           .map(
             (dynamic item) => User.fromJson(item),
@@ -145,7 +164,6 @@ class HttpService {
 
       double cost = body;
 
-      print(cost.toString());
       return cost.toString();
     } else {
       throw "Can't get cost of event with id $eventid.";

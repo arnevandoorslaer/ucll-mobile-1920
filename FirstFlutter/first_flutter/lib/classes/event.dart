@@ -18,18 +18,6 @@ class Event{
       startDate = startDate.substring(0,startDate.length-3);
       endDate = endDate.substring(0,endDate.length-3);
     }
-/*
-  static Event fromJson(json) {
-    Event event = new Event();
-    event.eventName = json.eventName;
-    event.startDate = json.startDate;
-    event.endDate = json.endDate;
-    event.location = json.location;
-    event.participants = json.participants;
-    event.extraInfo = json.extraInfo;
-    event.picPath = json.picPath;
-    return event;
-  }*/
 
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
