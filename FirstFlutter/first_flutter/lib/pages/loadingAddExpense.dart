@@ -1,27 +1,27 @@
 import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:Cleverdivide/classes/user.dart';
+import 'package:Cleverdivide/classes/event.dart';
 import '../widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class LoadingParticipants extends StatefulWidget {
+class LoadingAddExpense extends StatefulWidget {
   @override
-  _LoadingParticipantsState createState() => _LoadingParticipantsState();
+  _LoadingAddExpenseState createState() => _LoadingAddExpenseState();
 }
 
-class _LoadingParticipantsState extends State<LoadingParticipants> {
+class _LoadingAddExpenseState extends State<LoadingAddExpense> {
 
   Map data = {};
-  int id;
+  Event event;
 
   void getData() async{
     data = ModalRoute.of(context).settings.arguments;
-    id = data['id'];
+    event = data['event'];
 
-    HttpService.getParticipants(id).then((List<User> result) =>
-        Navigator.pushReplacementNamed(context, '/participants',
-            arguments: {'users': result}))
-        .catchError(throw "met kindern");
+    HttpService.getParticipants(event.eventId).then((List<User> result) =>
+        Navigator.pushReplacementNamed(context, '/addexpense', arguments: {'event': event, 'participants': result}))
+        .catchError(throw "Failed to get participants for add expense");
   }
 
   @override
@@ -34,7 +34,7 @@ class _LoadingParticipantsState extends State<LoadingParticipants> {
     getData();
 
     return Scaffold(
-      appBar: CustomAppBarWidget(text: "Loading...",),
+      appBar: CustomAppBarWidget(text: "Uitgave Toevoegen laden...",),
       body: Center(
         child: SpinKitRing(
           color: Colors.amber,

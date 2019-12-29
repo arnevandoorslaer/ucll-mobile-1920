@@ -343,7 +343,7 @@ class _EventScreenState extends State<EventScreen> {
                         ),
 
                         RaisedButton(onPressed: () {
-                          Navigator.pushNamed(context, '/addexpense', arguments: {'event': event});
+                          Navigator.pushNamed(context, '/loadingaddexpense', arguments: {'event': event});
                         },
                           child:
                           Padding(

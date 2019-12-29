@@ -1,3 +1,4 @@
+import 'package:Cleverdivide/pages/loadingAddExpense.dart';
 import 'package:Cleverdivide/pages/participantList.dart';
 import 'package:Cleverdivide/pages/loadingParticipants.dart';
 import 'package:Cleverdivide/pages/loadingEvent.dart';
@@ -31,6 +32,7 @@ void main() => runApp(MaterialApp(
     "/loadingexpenses" : (context) => LoadingExpenses(),
     "/expenses" : (context) => ExpensesList(),
     "/addexpense" : (context) => AddExpense(),
+    "/loadingaddexpense" : (context) => LoadingAddExpense(),
   },
   theme: ThemeData(
     brightness: Brightness.dark,

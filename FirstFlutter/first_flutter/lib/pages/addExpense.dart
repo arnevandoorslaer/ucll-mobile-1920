@@ -1,4 +1,4 @@
-import 'package:Cleverdivide/widgets/aanmaakForm.dart';
+import 'package:Cleverdivide/widgets/createExpenseForm.dart';
 import 'package:flutter/material.dart';
 import '../widgets/appbar.dart';
 
@@ -13,7 +13,7 @@ class _AddExpenseState extends State<AddExpense> {
     return Scaffold(
       appBar: CustomAppBarWidget(text: "Uitgave Toevoegen",),
       backgroundColor: Colors.grey[900],
-      body: AanmaakForm(),
+      body: CreateExpenseForm(),
     );
   }
 }

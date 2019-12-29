@@ -215,4 +215,8 @@ class HttpService {
       return false;
     }
   }
+
+  static Future<bool> addExpense(List participants, int payerId, double amount, int eventId, String description) async {
+    return true;
+  }
 }
