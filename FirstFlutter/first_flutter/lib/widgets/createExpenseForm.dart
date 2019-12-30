@@ -151,7 +151,11 @@ class _CreateExpenseFormState extends State<CreateExpenseForm> {
                     titleText: "Selecteer betaler: ",
                     validator: (value) {
                       if (value == null) {
-                        return 'Gelieve een of meer deelnemers te selecteren';
+                        return "Gelieve een betaler te selecteren!";
+                      }
+                      List<String> g = value.toString().split(" ");
+                      if(g.length > 1){
+                        return "Er kan maar 1 betaler zijn!";
                       }
                     },
                     errorText: 'Selecteer betaler: ',
