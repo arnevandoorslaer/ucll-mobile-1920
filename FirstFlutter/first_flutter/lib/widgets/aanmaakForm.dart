@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:Cleverdivide/classes/user.dart';
 import 'package:Cleverdivide/widgets/multiSelect.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class AanmaakForm extends StatefulWidget {
   @override
@@ -14,13 +17,13 @@ class _AanmaakFormState extends State<AanmaakForm> {
   Map data = {};
   List<User> users = [];
   List participants = [];
-
   List usersMultiSelect = [];
 
   @override
   void initState() {
     super.initState();
   }
+
 
   final _formKey = GlobalKey<FormState>();
   DateTime start = DateTime.now(), end = DateTime.now();
@@ -91,11 +94,39 @@ class _AanmaakFormState extends State<AanmaakForm> {
 
                 Padding(// LOCATION---------------------------------------------
                   padding: const EdgeInsets.fromLTRB(10,0,10,10),
-                  child: TextFormField(
-                    controller: locationController,
-                    maxLines: null,
-                    style: TextStyle(
-                      color: Colors.white,
+                  child: TypeAheadFormField (
+                    suggestionsCallback: (city) {
+                      return HttpService.getSuggestions(city);
+                    },
+                    itemBuilder: (context, suggestion) {
+                      return ListTile(
+                        title: Text(suggestion),
+                      );
+                    },
+                    transitionBuilder: (context, suggestionsBox, controller) {
+                      return suggestionsBox;
+                    },
+                    onSuggestionSelected: (suggestion) {
+                      return this.locationController.text = suggestion;
+                    },
+                    textFieldConfiguration: TextFieldConfiguration(
+                      controller: locationController,
+                      maxLines: null,
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                      decoration: InputDecoration(
+                        labelText: 'Locatie / Adres: ',
+                        labelStyle: TextStyle(
+                          color: Colors.amber,
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.amber)
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.amber)
+                        ),
+                      ),
                     ),
                     validator: (value) {
                       if (value.trim().isEmpty || value == null) {
@@ -103,18 +134,6 @@ class _AanmaakFormState extends State<AanmaakForm> {
                       }
                       return null;
                     },
-                    decoration: InputDecoration(
-                      labelText: 'Locatie / Adres: ',
-                      labelStyle: TextStyle(
-                        color: Colors.amber,
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.amber)
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.amber)
-                      ),
-                    ),
                   ),
                 ),
 

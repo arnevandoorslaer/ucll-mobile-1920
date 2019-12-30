@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:Cleverdivide/classes/event.dart';
 import 'package:Cleverdivide/classes/user.dart';
 import 'package:Cleverdivide/classes/expense.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:http/http.dart';
 import 'package:crypto/crypto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -328,6 +329,24 @@ class HttpService {
       return info;
     } else {
       throw "Can't get user payments";
+    }
+  }
+
+  static Future<List> getSuggestions(String location) async {
+    String url = "http://autocomplete.geocoder.api.here.com/6.2/suggest.json?query=${location}&app_id=nX8zLCoiFwtK5k8EsyOG&app_code=0UxHEHej0MQdid88rq8IHw";
+    Response res = await get(url);
+
+    List<String> result = List();
+
+    if (res.statusCode == 200) {
+      var body = json.decode(res.body);
+      List<dynamic> yo = body["suggestions"];
+      for (int g = 0; g < yo.length; g++) {
+        result.add(yo[g]["label"]);
+      }
+      return result;
+    } else {
+      throw "Can't get suggestions";
     }
   }
 }
