@@ -51,7 +51,7 @@ class _EventListState extends State<EventList> {
                             child: Text("${event.eventName}",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 16,
+                                fontSize: 20,
                               ),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -59,7 +59,7 @@ class _EventListState extends State<EventList> {
                           ),
                           Padding(
                             padding: EdgeInsets.fromLTRB(20, 5, 5, 0),
-                            child: Text(" ${event.startDate}\nDeelnemers: ${event.participants.length}",
+                            child: Text("${event.startDate}\nDeelnemers: ${event.participants.length}",
                                 style: TextStyle(
                                   color: Colors.grey[400],
                                   fontSize: 14,
