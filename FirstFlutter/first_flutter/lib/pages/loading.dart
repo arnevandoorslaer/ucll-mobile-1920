@@ -1,6 +1,7 @@
 import 'package:Cleverdivide/classes/event.dart';
 import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:Cleverdivide/classes/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -14,6 +15,12 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
 
   List participants;
+  String username;
+
+  void getUsername() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    username = prefs.getString("username");
+  }
 
   void getParticipants() async{
     HttpService.getUsers().then((List<User> result) =>
@@ -23,13 +30,14 @@ class _LoadingState extends State<Loading> {
   void getEvents(List participants) async{
     HttpService.getEvents().then((List<Event> result) =>
         Navigator.pushReplacementNamed(context, '/home',
-            arguments: {'events': result, 'participants': participants}))
+            arguments: {'events': result, 'participants': participants, 'username': username}))
         .catchError(throw "met kindern");
   }
 
   @override
   void initState() {
     super.initState();
+    getUsername();
     getParticipants();
   }
 
