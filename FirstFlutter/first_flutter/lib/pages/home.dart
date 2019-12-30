@@ -116,7 +116,18 @@ class _HomeState extends State<Home> {
     
     return Scaffold(
       backgroundColor: Colors.grey[900],
-      appBar: CustomAppBarWidget(text: "Event Manager",),
+      appBar: AppBar(
+        title: Text("Event Manager"),
+        backgroundColor: Color(0xff00285A),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, "/");
+            },
+          )
+        ],
+      ),
       body: ListView(
         children: <Widget>[
           ListHeader(text: "Aangemeld als:",),
