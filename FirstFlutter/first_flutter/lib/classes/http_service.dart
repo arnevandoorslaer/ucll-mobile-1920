@@ -302,15 +302,12 @@ class HttpService {
         "http://www.arnevandoorslaer.ga:8086/user/dataperevent/$username");
     print(res.statusCode);
     if (res.statusCode == 200) {
-      print("oke");
       List<dynamic> body = jsonDecode(res.body);
-      print(body);
       List<DueAndDebt> info = body
           .map(
             (dynamic item) => DueAndDebt.fromJson(item),
           )
           .toList();
-      print(info);
       return info;
     } else {
       throw "Can't get user event payments";
@@ -322,15 +319,12 @@ class HttpService {
         "http://www.arnevandoorslaer.ga:8086/user/dataperuser/$username");
     print(res.statusCode);
     if (res.statusCode == 200) {
-      print("oke");
       List<dynamic> body = jsonDecode(res.body);
-      print(body);
       List<DueAndDebt> info = body
           .map(
             (dynamic item) => DueAndDebt.fromJson(item),
           )
           .toList();
-      print(info);
       return info;
     } else {
       throw "Can't get user payments";

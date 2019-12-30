@@ -14,12 +14,12 @@ class LoadingProfile extends StatefulWidget {
 }
 
 class _LoadingProfileState extends State<LoadingProfile> {
-  List participants;
   String username;
 
   void getUsername() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     username = prefs.getString("username");
+    getProfileEventData();
   }
 
   void getProfileEventData() async{
@@ -34,12 +34,6 @@ class _LoadingProfileState extends State<LoadingProfile> {
   }
 
 
-
-  void getData() async {
-    getUsername();
-    getProfileEventData();
-  }
-
   @override
   void initState() {
     super.initState();
@@ -47,9 +41,21 @@ class _LoadingProfileState extends State<LoadingProfile> {
 
   @override
   Widget build(BuildContext context) {
-    getData();
+    getUsername();
     return Scaffold(
-      appBar: CustomAppBarWidget(text: "Loading Profile Info...",),
+      appBar: AppBar(
+        title: Text("Loading Profile Info..."),
+        backgroundColor: Color(0xff00285A),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.pushReplacementNamed(context, "/");
+            },
+          ),
+        ],
+      ),
       body: Center(
         child: SpinKitRing(
           color: Colors.amber,

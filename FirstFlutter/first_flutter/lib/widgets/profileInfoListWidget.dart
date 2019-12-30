@@ -86,17 +86,10 @@ class _ProfileInfoListState extends State<ProfileInfoList> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(15),
-              child: Text("Je bent geen lid van een evenement!",
+              child: Text("All set",
                 style: stijl,
                 textAlign: TextAlign.center,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Text("Maak je eigen evenement aan of wordt toegevoegd aan een evenement"
-                  " door iemand anders!",
-                style: stijl,
-              textAlign: TextAlign.center,),
             ),
           ],
         );
