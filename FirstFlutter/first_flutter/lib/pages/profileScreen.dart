@@ -1,6 +1,7 @@
-import 'package:Cleverdivide/classes/http_service.dart';
+import 'package:Cleverdivide/classes/dueAndDebt.dart';
+import 'package:Cleverdivide/widgets/listHeader.dart';
+import 'package:Cleverdivide/widgets/profileInfoListWidget.dart';
 import 'package:flutter/material.dart';
-import '../widgets/appbar.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -8,14 +9,19 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  Map data = {};
+  String username;
+  List<DueAndDebt> eventinfo = [];
+  List<DueAndDebt> userinfo = [];
+  String text;
 
   @override
   Widget build(BuildContext context) {
+    data = ModalRoute.of(context).settings.arguments;
+    username = data['username'];
+    eventinfo = data['eventinfo'];
+    userinfo = data['userinfo'];
+
     return Scaffold(
         backgroundColor: Colors.grey[900],
         appBar: AppBar(
@@ -37,15 +43,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ],
         ),
-        body:ListView(
+        body: ListView(
           children: <Widget>[
-            RichText(
-              text: TextSpan(
-                text: 'EPISCHE PROFIEL PAGINA',
-              ),
-            )
+            ListHeader(text: "Aangemeld als:",),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(25, 10, 5, 10),
+                    child: Text(
+                      "$username",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            ListHeader(text: "Bedragen per event:",),
+            ProfileInfoList(info: this.eventinfo,),
+            ListHeader(text: "Bedragen per user:",),
+            ProfileInfoList(info: this.userinfo,)
+
           ],
-        )
-    );
+        ));
   }
 }

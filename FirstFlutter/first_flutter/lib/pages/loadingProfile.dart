@@ -1,3 +1,4 @@
+import 'package:Cleverdivide/classes/dueAndDebt.dart';
 import 'package:Cleverdivide/classes/event.dart';
 import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:Cleverdivide/classes/user.dart';
@@ -13,38 +14,48 @@ class LoadingProfile extends StatefulWidget {
 }
 
 class _LoadingProfileState extends State<LoadingProfile> {
-
-  List participants;
   String username;
 
   void getUsername() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     username = prefs.getString("username");
+    getProfileEventData();
   }
 
-  void getParticipants() async{
-    HttpService.getUsers().then((List<User> result) =>
-    getEvents(result)).catchError(throw "Failed to get participants");
+  void getProfileEventData() async{
+    HttpService.getProfileEventData(username).then((List<DueAndDebt> eventresult) =>
+        getProfileUserData(eventresult));
   }
 
-  void getEvents(List participants) async{
-    HttpService.getEvents().then((List<Event> result) =>
+  void getProfileUserData(List<DueAndDebt> eventresult) async{
+    HttpService.getProfileUserData(username).then((List<DueAndDebt> userresult) =>
         Navigator.pushReplacementNamed(context, '/profile',
-            arguments: {'events': result, 'participants': participants, 'username': username}))
-        .catchError(throw "met kindern");
+            arguments: {'userinfo': userresult, 'eventinfo': eventresult, 'username': username}));
   }
+
 
   @override
   void initState() {
     super.initState();
-    getUsername();
-    getParticipants();
   }
 
   @override
   Widget build(BuildContext context) {
+    getUsername();
     return Scaffold(
-      appBar: CustomAppBarWidget(text: "Loading...",),
+      appBar: AppBar(
+        title: Text("Loading Profile Info..."),
+        backgroundColor: Color(0xff00285A),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.pushReplacementNamed(context, "/");
+            },
+          ),
+        ],
+      ),
       body: Center(
         child: SpinKitRing(
           color: Colors.amber,

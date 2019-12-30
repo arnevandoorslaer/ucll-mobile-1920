@@ -1,5 +1,6 @@
 import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter/services.dart';
 import 'package:Cleverdivide/classes/user.dart';
 import 'package:Cleverdivide/widgets/multiSelect.dart';
@@ -150,7 +151,11 @@ class _CreateExpenseFormState extends State<CreateExpenseForm> {
                     titleText: "Selecteer betaler: ",
                     validator: (value) {
                       if (value == null) {
-                        return 'Gelieve een of meer deelnemers te selecteren';
+                        return "Gelieve een betaler te selecteren!";
+                      }
+                      List<String> g = value.toString().split(" ");
+                      if(g.length > 1){
+                        return "Er kan maar 1 betaler zijn!";
                       }
                     },
                     errorText: 'Selecteer betaler: ',
@@ -178,8 +183,11 @@ class _CreateExpenseFormState extends State<CreateExpenseForm> {
 
                         Scaffold.of(context).showSnackBar(SnackBar(content: Text('Uitgave wordt toegevoegd...')));
 
-                        HttpService.addExpense(participants, payerId.first, double.tryParse(amountController.text), event.eventId, descriptionController.text).then((bool result) =>
-                            Navigator.popAndPushNamed(context, '/loadingevent', arguments:{'event':event}) );
+                        HttpService.addExpense(participants, payerId.first, double.tryParse(amountController.text), event.eventId, descriptionController.text)
+                            .then((bool result) {
+                          Navigator.pop(context);
+                          Navigator.pushReplacementNamed(context, '/loadingevent', arguments:{'event':event});
+                        });
                             //Navigator.pushNamedAndRemoveUntil(context, '/loadingevent', arguments:{'event':event}, (Route<dynamic> route) => false,) );
                       }
                     },

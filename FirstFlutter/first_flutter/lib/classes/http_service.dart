@@ -2,14 +2,17 @@ import 'dart:convert';
 import 'package:Cleverdivide/classes/event.dart';
 import 'package:Cleverdivide/classes/user.dart';
 import 'package:Cleverdivide/classes/expense.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:http/http.dart';
 import 'package:crypto/crypto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HttpService {
+import 'dueAndDebt.dart';
 
-  static Future<List<User>> getParticipants(int id) async{
-    Response res = await get("http://www.arnevandoorslaer.ga:8086/event/$id/participants");
+class HttpService {
+  static Future<List<User>> getParticipants(int id) async {
+    Response res =
+        await get("http://www.arnevandoorslaer.ga:8086/event/$id/participants");
 
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
@@ -17,7 +20,7 @@ class HttpService {
       List<User> users = body
           .map(
             (dynamic item) => User.fromJson(item),
-      )
+          )
           .toList();
 
       users.sort((a, b) => a.getName().compareTo(b.getName()));
@@ -28,7 +31,8 @@ class HttpService {
   }
 
   static Future<List<Expense>> getExpenses(int eventId) async {
-    Response res = await get("http://www.arnevandoorslaer.ga:8086/event/$eventId/payments");
+    Response res = await get(
+        "http://www.arnevandoorslaer.ga:8086/event/$eventId/payments");
 
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
@@ -36,7 +40,7 @@ class HttpService {
       List<Expense> expenses = body
           .map(
             (dynamic item) => Expense.fromJson(item),
-      )
+          )
           .toList();
 
       expenses.sort((a, b) => a.getAmount().compareTo(b.getAmount()));
@@ -55,7 +59,7 @@ class HttpService {
       List<User> users = body
           .map(
             (dynamic item) => User.fromJson(item),
-      )
+          )
           .toList();
 
       print(users);
@@ -65,45 +69,48 @@ class HttpService {
     }
   }
 
-  static void addParticipant(int userId, int eventId) async{
-    var res = await post("http://www.arnevandoorslaer.ga:8086/event/$eventId/participants/add/$userId");
+  static void addParticipant(int userId, int eventId) async {
+    var res = await post(
+        "http://www.arnevandoorslaer.ga:8086/event/$eventId/participants/add/$userId");
 
     if (res.statusCode == 201) {
       print("Added participant succesfully to event");
-    }else {
+    } else {
       print("Failed to add participant to event");
     }
   }
 
-  static void deleteParticipant(int userId, int eventId) async{
-    var res = await post("http://www.arnevandoorslaer.ga:8086/event/$eventId/participants/del/$userId");
+  static void deleteParticipant(int userId, int eventId) async {
+    var res = await post(
+        "http://www.arnevandoorslaer.ga:8086/event/$eventId/participants/del/$userId");
 
     if (res.statusCode == 201) {
-    print("Deleted participant succesfully from event");
-    }else {
-    print("Failed to delete participant from event");
+      print("Deleted participant succesfully from event");
+    } else {
+      print("Failed to delete participant from event");
     }
   }
+
   static Future<List<Event>> getEventsPerUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String username = prefs.getString("username");
-    if(username != null){
-      Response res = await get("http://www.arnevandoorslaer.ga:8086/user/events/$username");
+    if (username != null) {
+      Response res = await get(
+          "http://www.arnevandoorslaer.ga:8086/user/events/$username");
       if (res.statusCode == 200) {
         List<dynamic> body = jsonDecode(res.body);
-        List<Event> events =
-        body.map((dynamic item) => Event.fromJson(item),).toList();
+        List<Event> events = body
+            .map(
+              (dynamic item) => Event.fromJson(item),
+            )
+            .toList();
         return events;
+      } else {
+        throw ("kan niet die evenementen ophalen vriend");
       }
-      else
-        {
-          throw("kan niet die evenementen ophalen vriend");
-        }
+    } else {
+      return [];
     }
-    else
-      {
-        return [];
-      }
   }
 
   static Future<List<Event>> getEvents() async {
@@ -115,7 +122,7 @@ class HttpService {
       List<Event> events = body
           .map(
             (dynamic item) => Event.fromJson(item),
-      )
+          )
           .toList();
 
       print(events);
@@ -126,7 +133,8 @@ class HttpService {
   }
 
   static Future<String> getUsername(int userId) async {
-    Response res = await get("http://www.arnevandoorslaer.ga:8086/user/$userId/username");
+    Response res =
+        await get("http://www.arnevandoorslaer.ga:8086/user/$userId/username");
 
     if (res.statusCode == 200) {
       dynamic body = jsonDecode(res.body);
@@ -140,15 +148,17 @@ class HttpService {
     }
   }
 
-  static Future<bool> register(String username, String firstname, String lastname, String IBAN, String password) async {
+  static Future<bool> register(String username, String firstname,
+      String lastname, String IBAN, String password) async {
     var hashed = sha512.convert(utf8.encode(password));
-    var bodyy = "{\"username\" : \"$username\", \"firstname\" : \"$firstname\", "
+    var bodyy =
+        "{\"username\" : \"$username\", \"firstname\" : \"$firstname\", "
         "\"lastname\" : \"$lastname\", \"iban\" : \"$IBAN\",  \"password\" : \"$hashed\" }";
     Response res = await post("http://www.arnevandoorslaer.ga:8086/user/add",
-    body:bodyy, headers: {"Content-Type" : "application/json"});
+        body: bodyy, headers: {"Content-Type": "application/json"});
     if (res.statusCode == 201) {
       return true;
-    }else{
+    } else {
       throw Exception("Failed to register user");
     }
   }
@@ -156,8 +166,8 @@ class HttpService {
   static Future<bool> login(String username, String password) async {
     var hashed = sha512.convert(utf8.encode(password));
     var bodyy = "{\"username\" : \"$username\", \"password\" : \"$hashed\"}";
-    Response res = await post(
-        "http://www.arnevandoorslaer.ga:8086/user/login", body: bodyy);
+    Response res = await post("http://www.arnevandoorslaer.ga:8086/user/login",
+        body: bodyy);
 
     if (res.statusCode == 200) {
       dynamic body = jsonDecode(res.body);
@@ -168,20 +178,20 @@ class HttpService {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString("username", username);
         return true;
-      }
-      else if (result == -1) {
+      } else if (result == -1) {
         throw Exception("User not found");
-      }
-      else {
+      } else {
         throw Exception("Password incorrect");
       }
     } else {
-      throw Exception("Can't login user '$username'. ${res.statusCode} - ${res.body}");
+      throw Exception(
+          "Can't login user '$username'. ${res.statusCode} - ${res.body}");
     }
   }
 
   static Future<String> getCostOfEvent(int eventid) async {
-    Response res = await get("http://www.arnevandoorslaer.ga:8086/event/$eventid/cost");
+    Response res =
+        await get("http://www.arnevandoorslaer.ga:8086/event/$eventid/cost");
 
     if (res.statusCode == 200) {
       dynamic body = jsonDecode(res.body);
@@ -195,37 +205,44 @@ class HttpService {
   }
 
   static Future<bool> deleteEvent(int eventId) async {
-    var res = await post("http://www.arnevandoorslaer.ga:8086/event/del/$eventId");
+    var res =
+        await post("http://www.arnevandoorslaer.ga:8086/event/del/$eventId");
 
     if (res.statusCode == 200) {
       print("Deleting event succesful");
       return true;
-    }else {
+    } else {
       print("Failed to delete event");
       return false;
     }
   }
 
-  static Future<bool> addEvent(String name, String startDate, String endDate, String location, List participants, String info, String link) async {
-    String body = "{\"eventName\":\"$name\",\"startDate\":\"$startDate\",\"endDate\":\"$endDate\",\"location\":\"$location\",\"participants\":[";
-    for (int p in participants){
+  static Future<bool> addEvent(String name, String startDate, String endDate,
+      String location, List participants, String info, String link) async {
+    String body =
+        "{\"eventName\":\"$name\",\"startDate\":\"$startDate\",\"endDate\":\"$endDate\",\"location\":\"$location\",\"participants\":[";
+    for (int p in participants) {
       body += "$p,";
     }
     body = body.substring(0, body.length - 1);
     body += "],\"extraInfo\":\"$info\",";
 
-    if (link.trim().isNotEmpty){
-    body += "\"picPath\":\"$link\"}";
-    }else{
+    if (link.trim().isNotEmpty) {
+      body += "\"picPath\":\"$link\"}";
+    } else {
       body += "\"picPath\":\"https://i.imgur.com/WqRXc6V.jpg\"}";
     }
 
     print("request body: " + body);
 
-    var res = await post("http://www.arnevandoorslaer.ga:8086/event/add", body: body, headers: {
-    "content-type" : "application/json",
-    "accept" : "application/json",
-    },);
+    var res = await post(
+      "http://www.arnevandoorslaer.ga:8086/event/add",
+      body: body,
+      headers: {
+        "content-type": "application/json",
+        "accept": "application/json",
+      },
+    );
 
     print('Response status: ${res.statusCode}');
     print('Response body: ${res.body}');
@@ -233,19 +250,103 @@ class HttpService {
     if (res.statusCode == 201) {
       print("Adding event succesful");
       return true;
-    }
-    else {
+    } else {
       print("Failed to add event");
       return false;
     }
   }
 
-  static Future<bool> addExpense(List participants, int payerId, double amount, int eventId, String description) async {
-    return true;
+  static Future<bool> addExpense(List participants, int payerId, double amount,
+      int eventId, String description) async {
+    String participantString = "[";
+    for (int participant in participants) {
+      participantString += "$participant,";
+    }
+    if (participantString.substring(participantString.length - 1) == ",") {
+      participantString =
+          participantString.substring(0, participantString.length - 1);
+    }
+    participantString += "]";
+
+    String body =
+        '{"participants":$participantString,"payer":$payerId,"amount":$amount,"eventId":$eventId,"message":"$description"}';
+    print("request body: " + body);
+
+    var res = await post(
+      "http://www.arnevandoorslaer.ga:8086/payment/add",
+      body: body,
+      headers: {
+        "content-type": "application/json",
+        "accept": "application/json",
+      },
+    );
+
+    print('Response status: ${res.statusCode}');
+    print('Response body: ${res.body}');
+
+    if (res.statusCode == 201) {
+      print("Adding payment succesful");
+      return true;
+    } else {
+      print("Failed to add payment");
+      return false;
+    }
   }
 
   static void logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove("username");
+  }
+
+  static Future<List<DueAndDebt>> getProfileEventData(String username) async {
+    Response res = await get(
+        "http://www.arnevandoorslaer.ga:8086/user/dataperevent/$username");
+    print(res.statusCode);
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+      List<DueAndDebt> info = body
+          .map(
+            (dynamic item) => DueAndDebt.fromJson(item),
+          )
+          .toList();
+      return info;
+    } else {
+      throw "Can't get user event payments";
+    }
+  }
+
+  static Future<List<DueAndDebt>> getProfileUserData(String username) async {
+    Response res = await get(
+        "http://www.arnevandoorslaer.ga:8086/user/dataperuser/$username");
+    print(res.statusCode);
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+      List<DueAndDebt> info = body
+          .map(
+            (dynamic item) => DueAndDebt.fromJson(item),
+          )
+          .toList();
+      return info;
+    } else {
+      throw "Can't get user payments";
+    }
+  }
+
+  static Future<List> getSuggestions(String location) async {
+    String url = "http://autocomplete.geocoder.api.here.com/6.2/suggest.json?query=${location}&app_id=nX8zLCoiFwtK5k8EsyOG&app_code=0UxHEHej0MQdid88rq8IHw";
+    Response res = await get(url);
+
+    List<String> result = List();
+
+    if (res.statusCode == 200) {
+      var body = json.decode(res.body);
+      List<dynamic> yo = body["suggestions"];
+      for (int g = 0; g < yo.length; g++) {
+        result.add(yo[g]["label"]);
+      }
+      return result;
+    } else {
+      throw "Can't get suggestions";
+    }
   }
 }

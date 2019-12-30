@@ -29,6 +29,7 @@ class _HomeState extends State<Home> {
     username = data['username'];
 
     Row row;
+    AppBar appbar;
     if (username == null) {
       row = Row(
         children: <Widget>[
@@ -68,6 +69,18 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
+        ],
+      );
+      appbar = AppBar(
+        title: Text("Event Manager"),
+        backgroundColor: Color(0xff00285A),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, "/");
+            },
+          )
         ],
       );
     } else {
@@ -114,12 +127,7 @@ class _HomeState extends State<Home> {
           ),
         ],
       );
-    }
-    
-    return Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: Colors.grey[900],
-      appBar: AppBar(
+      appbar = AppBar(
         title: Text("Event Manager"),
         backgroundColor: Color(0xff00285A),
         actions: <Widget>[
@@ -136,7 +144,16 @@ class _HomeState extends State<Home> {
             },
           )
         ],
-      ),
+      );
+    }
+
+
+    // test
+
+    return Scaffold(
+      key: _scaffoldKey,
+      backgroundColor: Colors.grey[900],
+      appBar: appbar,
       body: ListView(
         children: <Widget>[
           ListHeader(text: "Aangemeld als:",),
