@@ -18,7 +18,8 @@ import 'pages/eventScreen.dart';
 import 'pages/home.dart';
 
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
+      .copyWith(systemNavigationBarColor: Colors.grey[900]));
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     initialRoute: "/",
