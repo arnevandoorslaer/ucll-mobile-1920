@@ -35,6 +35,7 @@ void main() => runApp(MaterialApp(
     "/addexpense" : (context) => AddExpense(),
     "/loadingaddexpense" : (context) => LoadingAddExpense(),
     "/profile" : (context) => ProfileScreen(),
+    "/loadingProfile" : (context) => ProfileScreen(),
   },
   theme: ThemeData(
     brightness: Brightness.dark,

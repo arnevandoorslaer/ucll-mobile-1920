@@ -23,7 +23,7 @@ class CustomAppBarWidget extends StatelessWidget
         IconButton(
           icon: Icon(Icons.person),
           onPressed: () {
-            Navigator.pushNamed(context, "/profile");
+            Navigator.pushNamed(context, "/loadingProfile");
           },
         )
       ],

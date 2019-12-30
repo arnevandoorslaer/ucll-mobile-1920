@@ -129,7 +129,7 @@ class _HomeState extends State<Home> {
           IconButton(
             icon: Icon(Icons.person),
             onPressed: () {
-              Navigator.pushNamed(context, "/profile");
+              Navigator.pushNamed(context, "/loadingProfile");
             },
           )
         ],

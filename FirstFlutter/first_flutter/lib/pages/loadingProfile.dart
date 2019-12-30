@@ -1,0 +1,60 @@
+import 'package:Cleverdivide/classes/event.dart';
+import 'package:Cleverdivide/classes/http_service.dart';
+import 'package:Cleverdivide/classes/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../widgets/appbar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../classes/http_service.dart';
+
+class LoadingProfile extends StatefulWidget {
+  @override
+  _LoadingProfileState createState() => _LoadingProfileState();
+}
+
+class _LoadingProfileState extends State<LoadingProfile> {
+
+  List participants;
+  String username;
+
+  void getUsername() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    username = prefs.getString("username");
+  }
+
+  void getParticipants() async{
+    HttpService.getUsers().then((List<User> result) =>
+    getEvents(result)).catchError(throw "Failed to get participants");
+  }
+
+  void getEvents(List participants) async{
+    HttpService.getEvents().then((List<Event> result) =>
+        Navigator.pushReplacementNamed(context, '/profile',
+            arguments: {'events': result, 'participants': participants, 'username': username}))
+        .catchError(throw "met kindern");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUsername();
+    getParticipants();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: CustomAppBarWidget(text: "Loading...",),
+      body: Center(
+        child: SpinKitRing(
+          color: Colors.amber,
+          size: 50.0,
+        ),
+      ),
+      backgroundColor: Colors.grey[900],
+    );
+  }
+}
+
+
+

@@ -27,7 +27,19 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
         key: _scaffoldKey,
         backgroundColor: Colors.grey[900],
-        appBar: CustomAppBarWidget(text: "Login",),
+        appBar: AppBar(
+          title: Text("Login"),
+          backgroundColor: Color(0xff00285A),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.pushReplacementNamed(context, "/");
+              },
+            ),
+          ],
+        ),
         body:ListView(
           children: <Widget>[
             Form(

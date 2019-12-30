@@ -1,4 +1,7 @@
+import 'dart:html';
+
 import 'package:Cleverdivide/classes/http_service.dart';
+import 'package:Cleverdivide/classes/user.dart';
 import 'package:flutter/material.dart';
 import '../widgets/appbar.dart';
 
@@ -13,26 +16,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
   }
-
-  final _formKey = GlobalKey<FormState>();
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+  Map data = {};
+  List<Event> events= [];
+  List<User> users= [];
+  String username;
 
   @override
   Widget build(BuildContext context) {
+    // vul die map aan
+    data = ModalRoute.of(context).settings.arguments;
+    events = data['events'];
+    users = data['participants'];
+    username = data['username'];
+
     return Scaffold(
-        key: _scaffoldKey,
         backgroundColor: Colors.grey[900],
         appBar: AppBar(
-          title: Text("Profile"),
+          title: Text("Profiel"),
           backgroundColor: Color(0xff00285A),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.refresh),
               onPressed: () {
-                Navigator.pushReplacementNamed(context,  "/");
+                Navigator.pushReplacementNamed(context, "/loadingProfile");
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.pushReplacementNamed(context, "/");
               },
             ),
           ],
@@ -41,8 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: <Widget>[
             RichText(
               text: TextSpan(
-                text: 'EPISCHE PROFILE PAGINA',
-                style: DefaultTextStyle.of(context).style,
+                text: 'EPISCHE PROFIEL PAGINA VAN "$username"',
               ),
             )
           ],
