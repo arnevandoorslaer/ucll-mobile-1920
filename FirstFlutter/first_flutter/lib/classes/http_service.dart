@@ -4,6 +4,7 @@ import 'package:Cleverdivide/classes/user.dart';
 import 'package:Cleverdivide/classes/expense.dart';
 import 'package:http/http.dart';
 import 'package:crypto/crypto.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HttpService {
 
@@ -143,6 +144,8 @@ class HttpService {
       int result = body;
 
       if (result == 1) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString("username", username);
         return true;
       }
       else if (result == -1) {
@@ -218,5 +221,10 @@ class HttpService {
 
   static Future<bool> addExpense(List participants, int payerId, double amount, int eventId, String description) async {
     return true;
+  }
+
+  static void logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("username");
   }
 }

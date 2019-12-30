@@ -1,6 +1,8 @@
 import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:flutter/material.dart';
 import '../widgets/appbar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -104,10 +106,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('Bezig met inloggen...')));
 
                               HttpService.login(usernameController.text, passwordController.text)
-                                  .then((bool result) =>
-
-                                  Navigator.pushNamed(context, '/'))
-                                  .catchError((err){_scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('Fout bij inloggen')));
+                                  .then((bool result) {
+                                Navigator.of(context).popUntil((route) =>
+                                route.isFirst);
+                                Navigator.pushReplacementNamed(context, "/");
+                              })
+                                  .catchError((err){_scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(err.toString().replaceAll("Exception: ", ""))));
                               });
                             }
                         },
