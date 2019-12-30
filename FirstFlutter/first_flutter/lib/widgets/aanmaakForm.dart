@@ -96,7 +96,9 @@ class _AanmaakFormState extends State<AanmaakForm> {
                   padding: const EdgeInsets.fromLTRB(10,0,10,10),
                   child: TypeAheadFormField (
                     suggestionsCallback: (city) {
-                      return HttpService.getSuggestions(city);
+                      if (city != null && !city.trim().isEmpty) {
+                        return HttpService.getSuggestions(city);
+                      }
                     },
                     itemBuilder: (context, suggestion) {
                       return ListTile(
