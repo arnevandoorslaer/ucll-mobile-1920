@@ -53,7 +53,7 @@ class _HomeState extends State<Home> {
                 onPressed: () {Navigator.pushNamed(context, "/login");},
                 child: Row(
                   children: <Widget>[
-                    Text("Login",
+                    Text("Inloggen",
                       style: TextStyle(
                         color: Color(0xff00285A),
                       ),
@@ -109,7 +109,7 @@ class _HomeState extends State<Home> {
                 },
                 child: Row(
                   children: <Widget>[
-                    Text("Logout",
+                    Text("Afmelden",
                       style: TextStyle(
                         color: Color(0xff00285A),
                       ),

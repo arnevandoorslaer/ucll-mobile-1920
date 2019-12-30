@@ -44,7 +44,7 @@ class _LoadingProfileState extends State<LoadingProfile> {
     getUsername();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Loading Profile Info..."),
+        title: Text("Profiel Info Laden..."),
         backgroundColor: Color(0xff00285A),
         actions: <Widget>[
           IconButton(
