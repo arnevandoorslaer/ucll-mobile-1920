@@ -59,7 +59,7 @@ class _EventListState extends State<EventList> {
                           ),
                           Padding(
                             padding: EdgeInsets.fromLTRB(20, 5, 5, 0),
-                            child: Text("${event.startDate} tot ${event.endDate}",
+                            child: Text(" ${event.startDate}\n   Deelnemers: ${event.participants.length}",
                                 style: TextStyle(
                                   color: Colors.grey[400],
                                   fontSize: 14,
