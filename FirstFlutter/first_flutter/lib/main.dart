@@ -1,4 +1,5 @@
 import 'package:Cleverdivide/pages/loadingAddExpense.dart';
+import 'package:Cleverdivide/pages/loadingProfile.dart';
 import 'package:Cleverdivide/pages/participantList.dart';
 import 'package:Cleverdivide/pages/loadingParticipants.dart';
 import 'package:Cleverdivide/pages/loadingEvent.dart';
@@ -18,8 +19,8 @@ import 'pages/eventScreen.dart';
 import 'pages/home.dart';
 
 void main() {
-
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
+      .copyWith(systemNavigationBarColor: Colors.grey[900]));
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     initialRoute: "/",
@@ -40,7 +41,7 @@ void main() {
       "/addexpense": (context) => AddExpense(),
       "/loadingaddexpense": (context) => LoadingAddExpense(),
       "/profile": (context) => ProfileScreen(),
-      "/loadingProfile": (context) => ProfileScreen(),
+      "/loadingProfile": (context) => LoadingProfile(),
     },
     theme: ThemeData(
       brightness: Brightness.dark,
