@@ -4,6 +4,7 @@ import 'package:Cleverdivide/classes/user.dart';
 import 'package:Cleverdivide/classes/expense.dart';
 import 'package:http/http.dart';
 import 'package:crypto/crypto.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HttpService {
 
@@ -83,6 +84,27 @@ class HttpService {
     print("Failed to delete participant from event");
     }
   }
+  static Future<List<Event>> getEventsPerUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String username = prefs.getString("username");
+    if(username != null){
+      Response res = await get("http://www.arnevandoorslaer.ga:8086/user/events/$username");
+      if (res.statusCode == 200) {
+        List<dynamic> body = jsonDecode(res.body);
+        List<Event> events =
+        body.map((dynamic item) => Event.fromJson(item),).toList();
+        return events;
+      }
+      else
+        {
+          throw("kan niet die evenementen ophalen vriend");
+        }
+    }
+    else
+      {
+        return [];
+      }
+  }
 
   static Future<List<Event>> getEvents() async {
     Response res = await get("http://www.arnevandoorslaer.ga:8086/events");
@@ -143,6 +165,8 @@ class HttpService {
       int result = body;
 
       if (result == 1) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString("username", username);
         return true;
       }
       else if (result == -1) {
@@ -218,5 +242,10 @@ class HttpService {
 
   static Future<bool> addExpense(List participants, int payerId, double amount, int eventId, String description) async {
     return true;
+  }
+
+  static void logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("username");
   }
 }
