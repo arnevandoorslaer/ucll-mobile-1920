@@ -1,3 +1,4 @@
+import 'package:Cleverdivide/classes/dueAndDebt.dart';
 import 'package:Cleverdivide/classes/event.dart';
 import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:Cleverdivide/classes/user.dart';
@@ -13,38 +14,29 @@ class LoadingProfile extends StatefulWidget {
 }
 
 class _LoadingProfileState extends State<LoadingProfile> {
-
   List participants;
   String username;
 
-  void getUsername() async {
+  void getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     username = prefs.getString("username");
-  }
 
-  void getParticipants() async{
-    HttpService.getUsers().then((List<User> result) =>
-    getEvents(result)).catchError(throw "Failed to get participants");
-  }
-
-  void getEvents(List participants) async{
-    HttpService.getEvents().then((List<Event> result) =>
+    HttpService.getProfileData(username).then((List<DueAndDebt> result) =>
         Navigator.pushReplacementNamed(context, '/profile',
-            arguments: {'events': result, 'participants': participants, 'username': username}))
-        .catchError(throw "met kindern");
+            arguments: {'info': result, 'username': username}))
+        .catchError(throw "met kindern haha");
   }
 
   @override
   void initState() {
     super.initState();
-    getUsername();
-    getParticipants();
   }
 
   @override
   Widget build(BuildContext context) {
+    getData();
     return Scaffold(
-      appBar: CustomAppBarWidget(text: "Loading...",),
+      appBar: CustomAppBarWidget(text: "Loading Profile Info...",),
       body: Center(
         child: SpinKitRing(
           color: Colors.amber,

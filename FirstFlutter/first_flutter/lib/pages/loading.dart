@@ -31,7 +31,7 @@ class _LoadingState extends State<Loading> {
     HttpService.getEventsPerUser().then((List<Event> result) =>
         Navigator.pushReplacementNamed(context, '/home',
             arguments: {'events': result, 'participants': participants, 'username': username}))
-        .catchError(throw "met kindern");
+        .catchError(throw "met kindern haha");
   }
 
   @override

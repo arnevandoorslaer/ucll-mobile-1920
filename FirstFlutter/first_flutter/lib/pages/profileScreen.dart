@@ -1,3 +1,6 @@
+import 'package:Cleverdivide/classes/dueAndDebt.dart';
+import 'package:Cleverdivide/widgets/listHeader.dart';
+import 'package:Cleverdivide/widgets/profileInfoListWidget.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -6,14 +9,22 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  Map data = {};
+  String username;
+  List<DueAndDebt> info = [];
+  String text;
 
   @override
   Widget build(BuildContext context) {
+    data = ModalRoute.of(context).settings.arguments;
+    username = data['username'];
+    info = data['info'];
+    if (username == null) {
+      text = "bruh";
+    } else {
+      text = "$username";
+    }
+
     return Scaffold(
         backgroundColor: Colors.grey[900],
         appBar: AppBar(
@@ -35,15 +46,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ],
         ),
-        body:ListView(
+        body: ListView(
           children: <Widget>[
-            RichText(
-              text: TextSpan(
-                text: 'EPISCHE PROFIEL PAGINA',
-              ),
-            )
+            ListHeader(text: "Aangemeld als:",),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(25, 10, 5, 10),
+                    child: Text(
+                      "$username",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            ListHeader(text: "Bedragen per event:",),
+            ProfileInfoList(info: this.info,)
+
           ],
-        )
-    );
+        ));
   }
 }

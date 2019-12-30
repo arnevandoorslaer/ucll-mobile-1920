@@ -6,6 +6,8 @@ import 'package:http/http.dart';
 import 'package:crypto/crypto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'dueAndDebt.dart';
+
 class HttpService {
 
   static Future<List<User>> getParticipants(int id) async{
@@ -248,4 +250,19 @@ class HttpService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove("username");
   }
+  static Future<List<DueAndDebt>> getProfileData(String username) async {
+    Response res = await get("http://www.arnevandoorslaer.ga:8086/user/data/$username");
+
+    if (res.statusCode == 200) {
+      print("oke");
+      List<dynamic> body = jsonDecode(res.body);
+      print(body);
+      List<DueAndDebt> info = body.map((dynamic item) => DueAndDebt.fromJson(item),).toList();
+      print(info);
+      return info;
+    } else {
+      throw "Can't get user info";
+    }
+  }
+
 }
