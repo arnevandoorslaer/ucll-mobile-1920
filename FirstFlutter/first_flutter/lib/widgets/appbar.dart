@@ -17,6 +17,7 @@ class CustomAppBarWidget extends StatelessWidget
           icon: Icon(Icons.home),
           onPressed: () {
             Navigator.of(context).popUntil((route) => route.isFirst);
+            Navigator.pushReplacementNamed(context, "/");
           },
         )
       ],
