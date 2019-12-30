@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:Cleverdivide/widgets/multiSelect.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import "../classes/event.dart";
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoder/geocoder.dart';
@@ -415,10 +416,7 @@ class _EventScreenState extends State<EventScreen> {
                     RaisedButton.icon(
                       color: Colors.red[200],
                       onPressed: () {
-                        if(event.eventId != 1 && event.eventId != 2){
-                          Scaffold.of(context).showSnackBar(SnackBar(content: Text('Evenement verwijderen...')));
-                          HttpService.deleteEvent(event.eventId).then((bool result) => Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false,));
-                        }
+                        _showAlert();
                       },
                       label: Padding(
                         padding: const EdgeInsets.all(15),
@@ -439,6 +437,31 @@ class _EventScreenState extends State<EventScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  void _showAlert(){
+    showDialog(
+        context: context,
+        builder: (_) => new AlertDialog(
+          title: new Text('Verwijderen...'),
+          content: new Text("Ben je zeker dat je dit evenement wilt verwijderen?",
+            style: new TextStyle(fontSize: 20.0, color: Colors.grey[200]), ),
+          actions: <Widget>[
+            new RaisedButton(onPressed: () {
+                if(event.eventId != 1 && event.eventId != 2){
+                  HttpService.deleteEvent(event.eventId).then((bool result) => Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false,));
+                }
+              }, child: new Text('Ja', style: TextStyle(color: Color(0xff00285A))),
+              color: Colors.amber,
+            ),
+            new RaisedButton(onPressed: () {
+                  Navigator.pop(context);
+              }, child: new Text('Terug', style: TextStyle(color: Color(0xff00285A)),),
+              color: Colors.amber,
+            ),
+          ],
+        )
     );
   }
 }
