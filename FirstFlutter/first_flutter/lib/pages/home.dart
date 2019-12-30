@@ -18,6 +18,8 @@ class _HomeState extends State<Home> {
   List<User> users= [];
   String username;
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     // vul die map aan
@@ -115,6 +117,7 @@ class _HomeState extends State<Home> {
     }
     
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
         title: Text("Event Manager"),
@@ -124,6 +127,12 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.refresh),
             onPressed: () {
               Navigator.pushReplacementNamed(context, "/");
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.person),
+            onPressed: () {
+              Navigator.pushNamed(context, "/loadingProfile");
             },
           )
         ],
@@ -139,7 +148,17 @@ class _HomeState extends State<Home> {
       floatingActionButton: Padding(
         padding: EdgeInsets.fromLTRB(0, 0, 15, 15),
         child: FloatingActionButton(
-          onPressed: () {Navigator.pushNamed(context, "/add", arguments: {'participants': this.users});},
+          onPressed: () {
+            if(username != null) {
+              Navigator.pushNamed(context, "/add", arguments: {'participants': this.users});
+            }
+            else
+              {
+                _scaffoldKey.currentState.showSnackBar
+                  (SnackBar(content: Text("Je moet ingelogd zijn om een evenement aan"
+                    " te maken!")));
+              }
+            },
           child: Icon(Icons.add, size: 40,),
           foregroundColor: Color(0xff00285A),
           backgroundColor: Colors.amber,

@@ -84,6 +84,27 @@ class HttpService {
     print("Failed to delete participant from event");
     }
   }
+  static Future<List<Event>> getEventsPerUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String username = prefs.getString("username");
+    if(username != null){
+      Response res = await get("http://www.arnevandoorslaer.ga:8086/user/events/$username");
+      if (res.statusCode == 200) {
+        List<dynamic> body = jsonDecode(res.body);
+        List<Event> events =
+        body.map((dynamic item) => Event.fromJson(item),).toList();
+        return events;
+      }
+      else
+        {
+          throw("kan niet die evenementen ophalen vriend");
+        }
+    }
+    else
+      {
+        return [];
+      }
+  }
 
   static Future<List<Event>> getEvents() async {
     Response res = await get("http://www.arnevandoorslaer.ga:8086/events");

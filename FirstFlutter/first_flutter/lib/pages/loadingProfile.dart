@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../classes/http_service.dart';
 
-class Loading extends StatefulWidget {
+class LoadingProfile extends StatefulWidget {
   @override
-  _LoadingState createState() => _LoadingState();
+  _LoadingProfileState createState() => _LoadingProfileState();
 }
 
-class _LoadingState extends State<Loading> {
+class _LoadingProfileState extends State<LoadingProfile> {
 
   List participants;
   String username;
@@ -28,8 +28,8 @@ class _LoadingState extends State<Loading> {
   }
 
   void getEvents(List participants) async{
-    HttpService.getEventsPerUser().then((List<Event> result) =>
-        Navigator.pushReplacementNamed(context, '/home',
+    HttpService.getEvents().then((List<Event> result) =>
+        Navigator.pushReplacementNamed(context, '/profile',
             arguments: {'events': result, 'participants': participants, 'username': username}))
         .catchError(throw "met kindern");
   }
