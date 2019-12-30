@@ -28,7 +28,6 @@ class _LoginScreenState extends State<LoginScreen> {
         appBar: CustomAppBarWidget(text: "Login",),
         body:ListView(
           children: <Widget>[
-
             Form(
               key: _formKey,
               child: Column(

@@ -10,7 +10,7 @@ class CustomAppBarWidget extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text("Event Manager"),
+      title: Text("$text"),
       backgroundColor: Color(0xff00285A),
       actions: <Widget>[
         IconButton(
