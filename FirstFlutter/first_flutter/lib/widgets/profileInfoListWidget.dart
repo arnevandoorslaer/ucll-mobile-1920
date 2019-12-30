@@ -24,17 +24,11 @@ class _ProfileInfoListState extends State<ProfileInfoList> {
           String due = "";
           String debt = "";
 
-          if(event.due == 0){
-            due = "Alles ontvangen!";
+          if(event.due != 0){
+            due = "Je moet nog " + event.due.toString() + " te ontvangen.";due = "Nog " + event.due.toString() + " euro ontvangen.";
           }
-          else{
-            due = "Nog " + event.due.toString() + " te ontvangen.";
-          }
-          if(event.debt == 0){
-            debt = "Alles betaald!";
-          }
-          else{
-            debt = "Nog " + event.debt.toString() + " te betalen.";
+          if(event.debt != 0){
+            debt = "Je moet nog  " + event.debt.toString() + " betalen.";
           }
 
           return Column(
@@ -48,7 +42,7 @@ class _ProfileInfoListState extends State<ProfileInfoList> {
                         children: <Widget>[
                           Padding(
                             padding: EdgeInsets.fromLTRB(10, 10, 5, 5),
-                            child: Text("${event.eventName}",
+                            child: Text("${event.name}",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -96,11 +90,6 @@ class _ProfileInfoListState extends State<ProfileInfoList> {
                 style: stijl,
                 textAlign: TextAlign.center,
               ),
-            ),
-            Image(
-              image: AssetImage("assets/sad.png"),
-              width: 200,
-              height: 200,
             ),
             Padding(
               padding: const EdgeInsets.all(15),

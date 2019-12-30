@@ -17,14 +17,27 @@ class _LoadingProfileState extends State<LoadingProfile> {
   List participants;
   String username;
 
-  void getData() async {
+  void getUsername() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     username = prefs.getString("username");
+  }
 
-    HttpService.getProfileData(username).then((List<DueAndDebt> result) =>
+  void getProfileEventData() async{
+    HttpService.getProfileEventData(username).then((List<DueAndDebt> eventresult) =>
+        getProfileUserData(eventresult));
+  }
+
+  void getProfileUserData(List<DueAndDebt> eventresult) async{
+    HttpService.getProfileUserData(username).then((List<DueAndDebt> userresult) =>
         Navigator.pushReplacementNamed(context, '/profile',
-            arguments: {'info': result, 'username': username}))
-        .catchError(throw "met kindern haha");
+            arguments: {'userinfo': userresult, 'eventinfo': eventresult, 'username': username}));
+  }
+
+
+
+  void getData() async {
+    getUsername();
+    getProfileEventData();
   }
 
   @override

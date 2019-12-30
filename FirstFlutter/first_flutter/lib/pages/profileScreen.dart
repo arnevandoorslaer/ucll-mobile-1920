@@ -11,19 +11,16 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   Map data = {};
   String username;
-  List<DueAndDebt> info = [];
+  List<DueAndDebt> eventinfo = [];
+  List<DueAndDebt> userinfo = [];
   String text;
 
   @override
   Widget build(BuildContext context) {
     data = ModalRoute.of(context).settings.arguments;
     username = data['username'];
-    info = data['info'];
-    if (username == null) {
-      text = "bruh";
-    } else {
-      text = "$username";
-    }
+    eventinfo = data['eventinfo'];
+    userinfo = data['userinfo'];
 
     return Scaffold(
         backgroundColor: Colors.grey[900],
@@ -66,7 +63,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
             ListHeader(text: "Bedragen per event:",),
-            ProfileInfoList(info: this.info,)
+            ProfileInfoList(info: this.eventinfo,),
+            ListHeader(text: "Bedragen per user:",),
+            ProfileInfoList(info: this.userinfo,)
 
           ],
         ));
