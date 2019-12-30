@@ -243,7 +243,34 @@ class HttpService {
   }
 
   static Future<bool> addExpense(List participants, int payerId, double amount, int eventId, String description) async {
-    return true;
+    String participantString = "[";
+    for(int participant in participants){
+      participantString += "$participant,";
+    }
+    if(participantString.substring(participantString.length-1) == ","){
+      participantString = participantString.substring(0,participantString.length-1);
+    }
+    participantString += "]";
+
+    String body = '{"participants":$participantString,"payer":$payerId,"amount":$amount,"eventId":$eventId,"message":"$description"}';
+    print("request body: " + body);
+
+    var res = await post("http://www.arnevandoorslaer.ga:8086/payment/add", body: body, headers: {
+      "content-type" : "application/json",
+      "accept" : "application/json",
+    },);
+
+    print('Response status: ${res.statusCode}');
+    print('Response body: ${res.body}');
+
+    if (res.statusCode == 201) {
+      print("Adding payment succesful");
+      return true;
+    }
+    else {
+      print("Failed to add payment");
+      return false;
+    }
   }
 
   static void logout() async {
