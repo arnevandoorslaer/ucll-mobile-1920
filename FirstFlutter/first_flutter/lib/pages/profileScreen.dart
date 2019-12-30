@@ -1,6 +1,4 @@
-import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:flutter/material.dart';
-import '../widgets/appbar.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
