@@ -122,7 +122,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 route.isFirst);
                                 Navigator.pushReplacementNamed(context, "/");
                               })
-                                  .catchError((err){_scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(err.toString().replaceAll("Exception: ", ""))));
+                                  .catchError((err){
+                                    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(err.toString().replaceAll("Exception: ", ""))));
                               });
                             }
                         },
