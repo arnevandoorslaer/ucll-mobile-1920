@@ -18,6 +18,7 @@ import 'pages/eventScreen.dart';
 import 'pages/home.dart';
 
 void main() {
+
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
