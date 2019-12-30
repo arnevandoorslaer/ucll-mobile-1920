@@ -93,7 +93,8 @@ class _EventScreenState extends State<EventScreen> {
                 background: new FadeInImage(
                     placeholder: NetworkImage('https://i.imgur.com/WqRXc6V.jpg'),
                     image: NetworkImage("${event.picPath}"),
-                    fit: BoxFit.cover
+                    fit: BoxFit.cover,
+                    alignment: FractionalOffset.center,
                 ),
               ),
             ),
