@@ -125,6 +125,12 @@ class _HomeState extends State<Home> {
             onPressed: () {
               Navigator.pushReplacementNamed(context, "/");
             },
+          ),
+          IconButton(
+            icon: Icon(Icons.person),
+            onPressed: () {
+              Navigator.pushNamed(context, "/profile");
+            },
           )
         ],
       ),

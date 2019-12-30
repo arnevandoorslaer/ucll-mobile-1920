@@ -7,6 +7,7 @@ import 'package:Cleverdivide/pages/loadingAddParticipants.dart';
 import 'package:Cleverdivide/pages/loadingExpenses.dart';
 import 'package:Cleverdivide/pages/expensesList.dart';
 import 'package:Cleverdivide/pages/addExpense.dart';
+import 'package:Cleverdivide/pages/profileScreen.dart';
 import 'pages/addEvent.dart';
 import 'pages/loading.dart';
 import 'pages/loginScreen.dart';
@@ -33,6 +34,7 @@ void main() => runApp(MaterialApp(
     "/expenses" : (context) => ExpensesList(),
     "/addexpense" : (context) => AddExpense(),
     "/loadingaddexpense" : (context) => LoadingAddExpense(),
+    "/profile" : (context) => ProfileScreen(),
   },
   theme: ThemeData(
     brightness: Brightness.dark,

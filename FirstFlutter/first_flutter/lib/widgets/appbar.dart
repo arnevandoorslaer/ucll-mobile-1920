@@ -19,6 +19,12 @@ class CustomAppBarWidget extends StatelessWidget
             Navigator.of(context).popUntil((route) => route.isFirst);
             Navigator.pushReplacementNamed(context, "/");
           },
+        ),
+        IconButton(
+          icon: Icon(Icons.person),
+          onPressed: () {
+            Navigator.pushNamed(context, "/profile");
+          },
         )
       ],
     );
