@@ -332,6 +332,30 @@ class HttpService {
     }
   }
 
+  static Future<double> getTotaldue(String username) async {
+    Response res = await get(
+        "http://www.arnevandoorslaer.ga:8086/user/totaldue/$username");
+    print(res.statusCode);
+    if (res.statusCode == 200) {
+      print("DUEDUEDUE" + res.body);
+      return jsonDecode(res.body);
+    } else {
+      throw "Can't get user payments";
+    }
+  }
+
+  static Future<double> getTotalDebt(String username) async {
+    Response res = await get(
+        "http://www.arnevandoorslaer.ga:8086/user/totaldebt/$username");
+    print(res.statusCode);
+    if (res.statusCode == 200) {
+      print("DEBTDEBTDEBT" + res.body);
+      return jsonDecode(res.body);
+    } else {
+      throw "Can't get user payments";
+    }
+  }
+
   static Future<List> getSuggestions(String location) async {
     String url = "http://autocomplete.geocoder.api.here.com/6.2/suggest.json?query=${location}&app_id=nX8zLCoiFwtK5k8EsyOG&app_code=0UxHEHej0MQdid88rq8IHw";
     Response res = await get(url);

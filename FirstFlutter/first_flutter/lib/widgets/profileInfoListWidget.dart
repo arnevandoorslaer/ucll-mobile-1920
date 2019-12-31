@@ -25,7 +25,7 @@ class _ProfileInfoListState extends State<ProfileInfoList> {
           String debt = "";
 
           if(event.due != 0){
-            due = "Je moet nog " + event.due.toString() + " te ontvangen.";due = "Nog " + event.due.toString() + " euro ontvangen.";
+            due = "Je moet nog " + event.due.toString() + " krijgen.";
           }
           if(event.debt != 0){
             debt = "Je moet nog  " + event.debt.toString() + " betalen.";
