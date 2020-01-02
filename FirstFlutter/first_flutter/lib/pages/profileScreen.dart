@@ -13,6 +13,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String username;
   List<DueAndDebt> eventinfo = [];
   List<DueAndDebt> userinfo = [];
+  double totalDue = 0;
+  double totalDebt = 0;
   String text;
 
   @override
@@ -21,6 +23,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     username = data['username'];
     eventinfo = data['eventinfo'];
     userinfo = data['userinfo'];
+
+    totalDue = data['due'];
+    totalDebt = data['debt'];
 
     return Scaffold(
         backgroundColor: Colors.grey[900],
@@ -62,6 +67,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 )
               ],
             ),
+            ListHeader(text: "Totaal bedrag te betalen: $totalDue",),
+            ListHeader(text: "Totaal bedrag te ontvangen: $totalDebt",),
             ListHeader(text: "Bedragen per event:",),
             ProfileInfoList(info: this.eventinfo,),
             ListHeader(text: "Bedragen per user:",),
