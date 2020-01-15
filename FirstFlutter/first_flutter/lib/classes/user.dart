@@ -16,6 +16,10 @@ class User{
         return this.userName;
     }
 
+    String getFirstName() {
+        return this.name;
+    }
+
     factory User.fromJson(Map<String, dynamic> json) {
         return User(
             id: json['id'] as int,

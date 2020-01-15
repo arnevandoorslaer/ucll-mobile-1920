@@ -15,6 +15,7 @@ class _ParticipantListState extends State<ParticipantList> {
   Widget build(BuildContext context) {
     data = ModalRoute.of(context).settings.arguments;
     users = data['users'];
+    users.sort((a, b) => a.getFirstName().compareTo(b.getUserName()));
 
     return Scaffold(
       backgroundColor: Colors.grey[900],

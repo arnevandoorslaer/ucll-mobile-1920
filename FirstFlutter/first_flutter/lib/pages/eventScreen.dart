@@ -27,7 +27,7 @@ class _EventScreenState extends State<EventScreen> {
   Map data = {};
   Event event;
   List<dynamic> participants;
-  String cost = "loading...";
+  String cost = "Aan het laden...";
   bool done = false;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
 

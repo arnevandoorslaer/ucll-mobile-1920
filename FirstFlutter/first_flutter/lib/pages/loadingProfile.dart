@@ -19,18 +19,28 @@ class _LoadingProfileState extends State<LoadingProfile> {
   void getUsername() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     username = prefs.getString("username");
-    getProfileEventData();
+    getTotalDue();
   }
 
-  void getProfileEventData() async{
+  void getTotalDue() async{
+    HttpService.getTotaldue(username).then((double due) =>
+        getTotalDebt(due));
+  }
+
+  void getTotalDebt(double due) async{
+    HttpService.getTotaldue(username).then((double debt) =>
+        getProfileEventData(due,debt));
+  }
+
+  void getProfileEventData(double due,double debt) async{
     HttpService.getProfileEventData(username).then((List<DueAndDebt> eventresult) =>
-        getProfileUserData(eventresult));
+        getProfileUserData(eventresult,due,debt));
   }
 
-  void getProfileUserData(List<DueAndDebt> eventresult) async{
+  void getProfileUserData(List<DueAndDebt> eventresult,double due,double debt) async{
     HttpService.getProfileUserData(username).then((List<DueAndDebt> userresult) =>
         Navigator.pushReplacementNamed(context, '/profile',
-            arguments: {'userinfo': userresult, 'eventinfo': eventresult, 'username': username}));
+            arguments: {'due': due, 'debt':debt, 'userinfo': userresult, 'eventinfo': eventresult, 'username': username}));
   }
 
 
@@ -44,7 +54,7 @@ class _LoadingProfileState extends State<LoadingProfile> {
     getUsername();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Loading Profile Info..."),
+        title: Text("Profiel Info Laden..."),
         backgroundColor: Color(0xff00285A),
         actions: <Widget>[
           IconButton(

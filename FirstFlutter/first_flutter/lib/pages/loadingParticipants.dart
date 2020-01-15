@@ -34,7 +34,7 @@ class _LoadingParticipantsState extends State<LoadingParticipants> {
     getData();
 
     return Scaffold(
-      appBar: CustomAppBarWidget(text: "Loading...",),
+      appBar: CustomAppBarWidget(text: "Aan het laden...",),
       body: Center(
         child: SpinKitRing(
           color: Colors.amber,

@@ -44,7 +44,7 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBarWidget(text: "Loading...",),
+      appBar: CustomAppBarWidget(text: "Aan het laden...",),
       body: Center(
         child: SpinKitRing(
           color: Colors.amber,
