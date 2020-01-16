@@ -29,16 +29,22 @@ class _ParticipantListState extends State<ParticipantList> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text("${user.name} ${user.surName}",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
+                  Flexible(
+                    flex: 6,
+                    child: Text("${user.name} ${user.surName}",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
-                  Text("${user.userName}",
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 12,
+                  Flexible(
+                    flex: 4,
+                    child: Text("${user.userName}",
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ],
