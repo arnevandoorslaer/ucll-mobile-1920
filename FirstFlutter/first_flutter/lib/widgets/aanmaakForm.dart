@@ -263,6 +263,11 @@ class _AanmaakFormState extends State<AanmaakForm> {
                       hintText: "Druk hier om mensen toe te voegen...",
                       titleText: "Selecteer deelnemers: ",
                       errorText: 'Selecteer deelnemers: ',
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Gelieve een of meer deelnemers te selecteren';
+                        }
+                      },
                       dataSource: this.usersMultiSelect,
                       textField: 'display',
                       valueField: 'value',
