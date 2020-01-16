@@ -457,13 +457,29 @@ class HttpService {
       dynamic body = jsonDecode(res.body);
 
       User user = User.fromJson(body);
-
-      print("Succesfully got all users");
+      if (user == null) {
+        throw "User is null";
+      }
+      print("Succesfully got user ${user.getUserName()}");
 
       return user;
     } else {
-      throw "Failed to get all users";
+      throw "Failed to get user";
     }
   }
+
+  static Future<bool> markAsPaid(int paymentId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String payee = prefs.getString("username");
+    Response res = await get("http://www.arnevandoorslaer.ga:8086/markpayment/$payee/$paymentId");
+
+    if (res.statusCode == 200) {
+      return true;
+    } else {
+      throw "Failed to mark payment as paid";
+    }
+  }
+
+
 
 }

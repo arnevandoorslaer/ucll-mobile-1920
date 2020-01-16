@@ -42,6 +42,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
           backgroundColor: Color(0xff00285A),
           actions: <Widget>[
             IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, "/loadingProfile");
+              },
+            ),
+            IconButton(
               icon: Icon(Icons.home),
               onPressed: () {
                 Navigator.of(context).popUntil((route) => route.isFirst);
