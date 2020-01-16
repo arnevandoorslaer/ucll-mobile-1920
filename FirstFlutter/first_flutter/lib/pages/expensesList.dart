@@ -28,16 +28,24 @@ class _ExpensesListState extends State<ExpensesList> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text("${expense.description}",
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 15,
+                  Flexible(
+                    flex: 7,
+                    child: Text("${expense.description}",
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 15,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Text("€${expense.amount}",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
+                  Flexible(
+                    flex: 3,
+                    child: Text("€${expense.amount}",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
