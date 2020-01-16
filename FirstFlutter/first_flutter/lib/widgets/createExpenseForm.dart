@@ -1,6 +1,5 @@
 import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter/services.dart';
 import 'package:Cleverdivide/classes/user.dart';
 import 'package:Cleverdivide/widgets/multiSelect.dart';
