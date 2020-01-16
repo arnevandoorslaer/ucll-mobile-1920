@@ -97,8 +97,17 @@ class _CreateExpenseFormState extends State<CreateExpenseForm> {
                       color: Colors.white,
                     ),
                     keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value.trim().isEmpty || value == null) {
+                        return "Dit veld mag niet leeg zijn!";
+                      }
+                      else if (!new RegExp("^[0-9]*[.,]?[0-9]*\$").hasMatch(value) || !value.contains(new RegExp("[0-9]"))) {
+                        return "Incorrecte waarde voor bedrag";
+                      }
+                      return null;
+                    },
                     inputFormatters: <TextInputFormatter>[
-                      WhitelistingTextInputFormatter(RegExp("[0-9|\.]"))
+                      WhitelistingTextInputFormatter(RegExp("[0-9.,]")),
                     ],
                     decoration: InputDecoration(
                       labelText:"Bedrag: ",
