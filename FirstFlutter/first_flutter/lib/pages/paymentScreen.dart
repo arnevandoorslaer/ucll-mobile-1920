@@ -44,7 +44,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             IconButton(
               icon: Icon(Icons.refresh),
               onPressed: () {
-                Navigator.pushReplacementNamed(context, "/loadingProfile");
+                Navigator.pushReplacementNamed(context, "/loadingPayments");
               },
             ),
             IconButton(
@@ -60,12 +60,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
           children: [
             ListView(
               children: <Widget>[
-                PaymentList(info: this.paymentsToPay, text: "Je hoeft niets te betalen!"),
+                PaymentList(info: this.paymentsToPay, text: "Je hoeft niets te betalen!", one: true),
               ]
             ),
             ListView(
                 children: <Widget>[
-                  PaymentList(info: this.paymentsPaid, text: "Je hebt nog niets betaald!"),
+                  PaymentList(info: this.paymentsPaid, text: "Je hebt nog niets betaald!", one: false),
                 ]
             ),
           ],
