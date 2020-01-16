@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:Cleverdivide/classes/event.dart';
+import 'package:Cleverdivide/classes/payment.dart';
 import 'package:Cleverdivide/classes/user.dart';
 import 'package:Cleverdivide/classes/expense.dart';
 import 'package:http/http.dart';
@@ -428,4 +429,41 @@ class HttpService {
       throw "Failed to get suggestions for location '$location'";
     }
   }
+
+  static Future<List<Payment>> getPayments(String username) async {
+    Response res = await get(
+        "http://www.arnevandoorslaer.ga:8086/user/$username/payments");
+
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+      List<Payment> info = body
+          .map(
+            (dynamic item) => Payment.fromJson(item),
+      )
+          .toList();
+
+      print("Succesfully got payments for user '$username'");
+
+      return info;
+    } else {
+      throw "Failed to get payments for user '$username'";
+    }
+  }
+
+  static Future<User> getUser(int id) async {
+    Response res = await get("http://www.arnevandoorslaer.ga:8086/user/get/$id");
+
+    if (res.statusCode == 200) {
+      dynamic body = jsonDecode(res.body);
+
+      User user = User.fromJson(body);
+
+      print("Succesfully got all users");
+
+      return user;
+    } else {
+      throw "Failed to get all users";
+    }
+  }
+
 }

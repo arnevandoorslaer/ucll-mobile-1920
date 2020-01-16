@@ -73,7 +73,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                   ),
-                )
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 5, 10, 5),
+                  child: ButtonTheme(
+                    minWidth: 50,
+                    child: RaisedButton(
+                      onPressed: () {Navigator.pushNamed(context, "/loadingPayments");},
+                      child: Row(
+                        children: <Widget>[
+                          Text("Betalingen ",
+                            style: TextStyle(
+                              color: Color(0xff00285A),
+                            ),
+                          ),
+                          Icon(
+                            Icons.payment,
+                            color: Color(0xff00285A),
+                            size: 30,
+                          ),
+                        ],
+                      ),
+                      color: Colors.amber,
+                    ),
+                  ),
+                ),
               ],
             ),
 
@@ -87,6 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ProfileInfoList(info: this.userinfo,)
 
           ],
-        ));
+        )
+    );
   }
 }

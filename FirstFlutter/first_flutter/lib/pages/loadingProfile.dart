@@ -1,9 +1,6 @@
 import 'package:Cleverdivide/classes/dueAndDebt.dart';
-import 'package:Cleverdivide/classes/event.dart';
 import 'package:Cleverdivide/classes/http_service.dart';
-import 'package:Cleverdivide/classes/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../classes/http_service.dart';

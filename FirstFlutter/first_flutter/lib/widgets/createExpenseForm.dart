@@ -104,6 +104,9 @@ class _CreateExpenseFormState extends State<CreateExpenseForm> {
                       else if (!new RegExp("^[0-9]*[.,]?[0-9]*\$").hasMatch(value) || !value.contains(new RegExp("[0-9]"))) {
                         return "Incorrecte waarde voor bedrag";
                       }
+                      else if (double.parse(value) > 9000) {
+                        return "It's over 9000!";
+                      }
                       return null;
                     },
                     inputFormatters: <TextInputFormatter>[

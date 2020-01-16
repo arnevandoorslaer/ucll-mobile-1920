@@ -20,6 +20,10 @@ class User{
         return this.name;
     }
 
+    String getIBAN() {
+        return this.cardNumber;
+    }
+
     factory User.fromJson(Map<String, dynamic> json) {
         return User(
             id: json['id'] as int,
