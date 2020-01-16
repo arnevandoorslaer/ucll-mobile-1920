@@ -80,6 +80,18 @@ class HttpService {
     }
   }
 
+  static void addParticipantByUsername(String username, int eventId) async {
+      var res = await post(
+          "http://www.arnevandoorslaer.ga:8086/event/$eventId/participants/addusername/$username");
+
+      if (res.statusCode == 201) {
+        print("Added participant succesfully to event");
+      } else {
+        print("Failed to add participant to event");
+      }
+    }
+
+
   static void deleteParticipant(int userId, int eventId) async {
     var res = await post(
         "http://www.arnevandoorslaer.ga:8086/event/$eventId/participants/del/$userId");
@@ -246,6 +258,11 @@ class HttpService {
 
     print('Response status: ${res.statusCode}');
     print('Response body: ${res.body}');
+    Map<String, dynamic> responseBody = jsonDecode(res.body);
+    int eid = responseBody['id'];
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String uid = prefs.getString("username");
+    addParticipantByUsername(uid, eid);
 
     if (res.statusCode == 201) {
       print("Adding event succesful");
@@ -267,6 +284,8 @@ class HttpService {
           participantString.substring(0, participantString.length - 1);
     }
     participantString += "]";
+
+    amount = (amount * 100).round() / 100;
 
     String body =
         '{"participants":$participantString,"payer":$payerId,"amount":$amount,"eventId":$eventId,"message":"$description"}';
