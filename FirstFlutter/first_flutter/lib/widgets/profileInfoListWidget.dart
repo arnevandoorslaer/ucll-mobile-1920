@@ -27,10 +27,10 @@ class _ProfileInfoListState extends State<ProfileInfoList> {
           double diff = event.due - event.debt;
 
           if(diff > 0){
-            result = "Je moet nog €" + diff.round().toStringAsFixed(2).toString() + " krijgen.";
+            result = "Je moet nog €" + diff.toString() + " krijgen.";
           }
           if(diff < 0){
-            result = "Je moet nog  €" + diff.round().abs().toStringAsFixed(2).toString() + " betalen.";
+            result = "Je moet nog  €" + diff.abs().toStringAsFixed(2).toString() + " betalen.";
           }
 
           return Column(

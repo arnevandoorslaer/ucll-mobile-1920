@@ -30,10 +30,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     totalDebt = data['debt'];
     diff = totalDebt-totalDue;
     if(diff > 0){
-      result = "Je moet nog €" + diff.round().toStringAsFixed(2).toString() + " krijgen.";
+      result = "Je moet nog €" + diff.toStringAsFixed(2).toString() + " krijgen.";
     }
     if(diff < 0){
-      result = "Je moet nog  €" + diff.round().abs().toStringAsFixed(2).toString() + " betalen.";
+      result = "Je moet nog  €" + diff.abs().toStringAsFixed(2).toString() + " betalen.";
     }
 
     return Scaffold(
