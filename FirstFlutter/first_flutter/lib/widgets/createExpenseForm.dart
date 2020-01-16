@@ -99,7 +99,7 @@ class _CreateExpenseFormState extends State<CreateExpenseForm> {
                     ),
                     keyboardType: TextInputType.number,
                     validator: (value) {
-                      if (value.trim().isEmpty || value == null) {
+                      if (value == null || value.trim().isEmpty) {
                         return "Dit veld mag niet leeg zijn!";
                       }
                       else if (!new RegExp("^[0-9]*[.,]?[0-9]*\$").hasMatch(value) || !value.contains(new RegExp("[0-9]"))) {

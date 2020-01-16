@@ -177,6 +177,7 @@ class HttpService {
 
   static Future<bool> register(String username, String firstname,
       String lastname, String IBAN, String password) async {
+    IBAN = IBAN.replaceAll(" ", "").replaceAllMapped(RegExp(r".{4}"), (match) => "${match.group(0)} ").toUpperCase();
     var hashed = sha512.convert(utf8.encode(password));
     var bodyy =
         "{\"username\" : \"$username\", \"firstname\" : \"$firstname\", "

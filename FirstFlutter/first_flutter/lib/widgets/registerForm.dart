@@ -1,5 +1,6 @@
 import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -142,11 +143,20 @@ class _RegisterFormState extends State<RegisterForm> {
                     color: Colors.white,
                   ),
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value == null || value.trim().isEmpty) {
                       return "Dit veld mag niet leeg zijn!";
+                    }
+                    if (value.replaceAll(" ", "").length != 16) {
+                      return "Lengte IBAN klopt niet!";
+                    }
+                    if (!new RegExp("\\w{2}\\d{2}( ?\\d{4}){3}").hasMatch(value)) {
+                      return "Iets is niet helemaal juist!";
                     }
                     return null;
                   },
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter(RegExp("[0-9 beBEnlNL]")),
+                  ],
                   decoration: InputDecoration(
                     labelText: 'IBAN: ',
                     labelStyle: TextStyle(
