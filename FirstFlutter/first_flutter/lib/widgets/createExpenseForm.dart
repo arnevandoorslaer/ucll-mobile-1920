@@ -186,9 +186,8 @@ class _CreateExpenseFormState extends State<CreateExpenseForm> {
                         HttpService.addExpense(participants, payerId.first, double.tryParse(amountController.text), event.eventId, descriptionController.text)
                             .then((bool result) {
                           Navigator.pop(context);
-                          Navigator.pushReplacementNamed(context, '/loadingevent', arguments:{'event':event});
+                          Navigator.pushReplacementNamed(context, '/loadingeventfromexpenseparticipants', arguments:{'id':event.getEventId()});
                         });
-                            //Navigator.pushNamedAndRemoveUntil(context, '/loadingevent', arguments:{'event':event}, (Route<dynamic> route) => false,) );
                       }
                     },
                     color: Colors.amber,
