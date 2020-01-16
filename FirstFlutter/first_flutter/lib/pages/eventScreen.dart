@@ -328,10 +328,10 @@ class _EventScreenState extends State<EventScreen> {
                             icon: Icon(Icons.list, color: Colors.white, size: 40, ),
                             label: Container(
                               constraints: BoxConstraints(
-                                  minWidth: MediaQuery.of(context).size.width*0.4,
+
                                   maxWidth: MediaQuery.of(context).size.width*0.4),
                               child: Text("Kost:  €$cost",
-                                textAlign: TextAlign.left,
+                                textAlign: TextAlign.center,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: TextStyle(
