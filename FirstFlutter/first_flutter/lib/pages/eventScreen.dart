@@ -45,7 +45,19 @@ class _EventScreenState extends State<EventScreen> {
           RegExp exp = new RegExp(r"(\d+\.\d{0,1})");
           String str = res;
           var matches = exp.allMatches(str);
-          cost = matches.elementAt(0).group(0);
+          var temp = matches.elementAt(0).group(0);
+          var temp2 = double.parse(temp);
+          if(temp2 > 1000000){
+              temp2 = temp2 / 100000;
+              cost = num.parse(temp2.toStringAsFixed(1)).toString() + "M";
+            }
+          else if(temp2 > 1000){
+            temp2 = temp2 / 1000;
+            cost = num.parse(temp2.toStringAsFixed(1)).toString() + "K";
+          }
+          else{
+            cost = num.parse(temp2.toStringAsFixed(1)).toString();
+          }
         });
         done = true;
       }
@@ -272,7 +284,7 @@ class _EventScreenState extends State<EventScreen> {
                               child: Text("${participants.length} Deelnemers",
                                 softWrap: true,
                                 style: TextStyle(
-                                  fontSize: 17,
+                                  fontSize: 16,
                                   color: Colors.white,
                                   fontFamily: 'Helvetica',
                                   fontWeight: FontWeight.bold,
@@ -303,66 +315,35 @@ class _EventScreenState extends State<EventScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-
                         Container(
-                          width: MediaQuery.of(context).size.width*0.7,
-                          child: ButtonTheme(
-                            minWidth: MediaQuery.of(context).size.width*0.7,
-                            child: RaisedButton.icon(
-                              splashColor: Colors.amber,
-                              color: Colors.grey[800],
-                              onPressed: () {
-                                Navigator.pushNamed(context, '/loadingexpenses', arguments: {'id': event.eventId});
-                              },
-                              icon: Icon(Icons.list, color: Colors.white, size: 40, ),
-                              label: Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-
-                                    Column(
-                                      children: <Widget>[
-
-                                        Text("Kost:  ",
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.white,
-                                            fontFamily: 'Helvetica',
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-
-                                      ],
-                                    ),
-
-                                    Container(
-                                      width: MediaQuery.of(context).size.width*0.37,
-                                      child: Text("€ $cost",
-                                        maxLines: 1,
-                                        softWrap: true,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          fontSize: 19,
-                                          color: Colors.white,
-                                          fontFamily: 'Helvetica',
-                                          decoration: TextDecoration.none,
-                                        ),
-                                      ),
-                                    ),
-
-
-                                  ],
+                          constraints: BoxConstraints(
+                              minWidth: MediaQuery.of(context).size.width*0.7,
+                              maxWidth: MediaQuery.of(context).size.width*0.7),
+                          child: RaisedButton.icon(
+                            splashColor: Colors.amber,
+                            color: Colors.grey[800],
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/loadingexpenses', arguments: {'id': event.eventId});
+                            },
+                            icon: Icon(Icons.list, color: Colors.white, size: 40, ),
+                            label: Container(
+                              constraints: BoxConstraints(
+                                  minWidth: MediaQuery.of(context).size.width*0.4,
+                                  maxWidth: MediaQuery.of(context).size.width*0.4),
+                              child: Text("Kost:  €$cost",
+                                textAlign: TextAlign.left,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontFamily: 'Helvetica',
+                                  decoration: TextDecoration.none,
                                 ),
                               ),
                             ),
                           ),
                         ),
-
-
-
-
                         RaisedButton(onPressed: () {
                           Navigator.pushNamed(context, '/loadingaddexpense', arguments: {'event': event});
                         },
