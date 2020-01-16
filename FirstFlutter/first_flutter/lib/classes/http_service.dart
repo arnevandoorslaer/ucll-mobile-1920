@@ -140,7 +140,22 @@ class HttpService {
       print(events);
       return events;
     } else {
-      throw "Can't get users";
+      throw "Can't get events";
+    }
+  }
+
+  static Future<Event> getEvent(int id) async {
+    Response res =
+    await get("http://www.arnevandoorslaer.ga:8086/event/get/$id");
+
+    if (res.statusCode == 200) {
+      dynamic body = jsonDecode(res.body);
+
+      Event event = body;
+
+      return event;
+    } else {
+      throw "Can't get event with id $id";
     }
   }
 

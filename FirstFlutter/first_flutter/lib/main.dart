@@ -1,4 +1,5 @@
 import 'package:Cleverdivide/pages/loadingAddExpense.dart';
+import 'package:Cleverdivide/pages/loadingEventFromExpenseParticipants.dart';
 import 'package:Cleverdivide/pages/loadingProfile.dart';
 import 'package:Cleverdivide/pages/participantList.dart';
 import 'package:Cleverdivide/pages/loadingParticipants.dart';
@@ -42,6 +43,7 @@ void main() {
       "/loadingaddexpense": (context) => LoadingAddExpense(),
       "/profile": (context) => ProfileScreen(),
       "/loadingProfile": (context) => LoadingProfile(),
+      "/loadingeventfromexpenseparticipants": (context) => LoadingEventFromExpenseParticipants(),
     },
     theme: ThemeData(
       brightness: Brightness.dark,

@@ -80,7 +80,7 @@ class _EventScreenState extends State<EventScreen> {
               pinned: true,
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false,),
               ),
               flexibleSpace: new FlexibleSpaceBar(
                 title: Text(

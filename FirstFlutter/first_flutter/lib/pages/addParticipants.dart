@@ -1,6 +1,5 @@
 import 'package:Cleverdivide/classes/http_service.dart';
 import 'package:flutter/material.dart';
-import 'package:Cleverdivide/widgets/appbar.dart';
 import 'package:Cleverdivide/classes/user.dart';
 import 'package:Cleverdivide/classes/event.dart';
 
@@ -32,7 +31,6 @@ class _AddParticipantsState extends State<AddParticipants> {
   @override
   Widget build(BuildContext context) {
     data = ModalRoute.of(context).settings.arguments;
-    event = data['event'];
     id = data['id'];
     users = data['users'];
     participants = data['participants'];
@@ -41,7 +39,15 @@ class _AddParticipantsState extends State<AddParticipants> {
 
     return Scaffold(
       backgroundColor: Colors.grey[900],
-      appBar: CustomAppBarWidget(text: "Gebruikers",),
+      appBar: AppBar(
+        backgroundColor: Color(0xff00285A),
+        title: Text("Gebruikers"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () =>
+            Navigator.pushReplacementNamed(context, '/loadingeventfromexpenseparticipants', arguments:{'id': id}),
+        ),
+      ),
       body: ListView(
           children: users.map((user){
 
@@ -57,8 +63,10 @@ class _AddParticipantsState extends State<AddParticipants> {
                       selected.add(user.getId());
                       HttpService.addParticipant(user.getId(), this.id);
                     }else{
-                      selected.remove(user.getId());
-                      HttpService.deleteParticipant(user.getId() ,this.id);
+                      if (selected.length > 1){
+                        selected.remove(user.getId());
+                        HttpService.deleteParticipant(user.getId() ,this.id);
+                      }
                     }
                   });
                 },

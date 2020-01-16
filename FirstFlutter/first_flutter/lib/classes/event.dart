@@ -19,6 +19,10 @@ class Event{
       endDate = endDate.substring(0,endDate.length-3);
     }
 
+    int getEventId(){
+      return this.eventId;
+    }
+
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
         eventId: json['id'] as int,

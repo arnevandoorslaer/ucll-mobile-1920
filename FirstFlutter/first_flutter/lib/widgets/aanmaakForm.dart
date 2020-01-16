@@ -310,7 +310,7 @@ class _AanmaakFormState extends State<AanmaakForm> {
                   padding: const EdgeInsets.fromLTRB(10,0,10,10),
                   child: TextFormField(
                     controller: pictureController,
-                    maxLines: null,
+                    maxLines: 1,
                     style: TextStyle(
                       color: Colors.white,
                     ),
