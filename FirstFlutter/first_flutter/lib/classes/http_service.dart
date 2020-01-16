@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dueAndDebt.dart';
 
 class HttpService {
+
   static Future<List<User>> getParticipants(int id) async {
     Response res = await get("http://www.arnevandoorslaer.ga:8086/event/$id/participants");
 
@@ -26,7 +27,7 @@ class HttpService {
 
       return users;
     } else {
-      throw "Failed to get participants for event with id '$id'";
+      throw("Failed to get participants for event with id '$id'");
     }
   }
 

@@ -1,12 +1,9 @@
 import 'dart:ui';
 import 'package:Cleverdivide/classes/http_service.dart';
-import 'package:Cleverdivide/widgets/multiSelect.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import "../classes/event.dart";
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoder/geocoder.dart';
-import 'package:location_permissions/location_permissions.dart';
 
 class EventScreen extends StatefulWidget {
   @override
@@ -307,42 +304,64 @@ class _EventScreenState extends State<EventScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
 
-                        ButtonTheme(
-                          minWidth: MediaQuery.of(context).size.width*0.7,
-                          child: RaisedButton.icon(
-                            splashColor: Colors.amber,
-                            color: Colors.grey[800],
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/loadingexpenses', arguments: {'id': event.eventId});
-                            },
-                            icon: Icon(Icons.list, color: Colors.white, size: 40, ),
-                            label: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text("Kost:  ",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.white,
-                                      fontFamily: 'Helvetica',
-                                      decoration: TextDecoration.none,
-                                    ),),
-                                  Text("€ $cost",
-                                    softWrap: true,
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      color: Colors.white,
-                                      fontFamily: 'Helvetica',
-                                      decoration: TextDecoration.none,
+                        Container(
+                          width: MediaQuery.of(context).size.width*0.7,
+                          child: ButtonTheme(
+                            minWidth: MediaQuery.of(context).size.width*0.7,
+                            child: RaisedButton.icon(
+                              splashColor: Colors.amber,
+                              color: Colors.grey[800],
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/loadingexpenses', arguments: {'id': event.eventId});
+                              },
+                              icon: Icon(Icons.list, color: Colors.white, size: 40, ),
+                              label: Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+
+                                    Column(
+                                      children: <Widget>[
+
+                                        Text("Kost:  ",
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.white,
+                                            fontFamily: 'Helvetica',
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+
+                                      ],
                                     ),
-                                  ),
-                                ],
+
+                                    Container(
+                                      width: MediaQuery.of(context).size.width*0.37,
+                                      child: Text("€ $cost",
+                                        maxLines: 1,
+                                        softWrap: true,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 19,
+                                          color: Colors.white,
+                                          fontFamily: 'Helvetica',
+                                          decoration: TextDecoration.none,
+                                        ),
+                                      ),
+                                    ),
+
+
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
+
+
+
 
                         RaisedButton(onPressed: () {
                           Navigator.pushNamed(context, '/loadingaddexpense', arguments: {'event': event});

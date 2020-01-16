@@ -19,9 +19,8 @@ class _LoadingParticipantsState extends State<LoadingParticipants> {
     id = data['id'];
 
     HttpService.getParticipants(id).then((List<User> result) =>
-        Navigator.pushReplacementNamed(context, '/participants',
-            arguments: {'users': result}))
-        .catchError(throw "met kindern");
+        Navigator.pushReplacementNamed(context, '/participants', arguments: {'users': result}))
+        .catchError(throw "Failed to get participants");
   }
 
   @override
