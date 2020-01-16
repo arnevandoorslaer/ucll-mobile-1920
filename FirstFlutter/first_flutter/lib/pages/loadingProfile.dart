@@ -23,12 +23,12 @@ class _LoadingProfileState extends State<LoadingProfile> {
   }
 
   void getTotalDue() async{
-    HttpService.getTotaldue(username).then((double due) =>
+    HttpService.getTotalDue(username).then((double due) =>
         getTotalDebt(due));
   }
 
   void getTotalDebt(double due) async{
-    HttpService.getTotaldue(username).then((double debt) =>
+    HttpService.getTotalDebt(username).then((double debt) =>
         getProfileEventData(due,debt));
   }
 

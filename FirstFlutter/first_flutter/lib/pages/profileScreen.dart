@@ -15,7 +15,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   List<DueAndDebt> userinfo = [];
   double totalDue = 0;
   double totalDebt = 0;
+  double diff = 0;
   String text;
+  String result = "";
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     totalDue = data['due'];
     totalDebt = data['debt'];
+    diff = totalDebt-totalDue;
+    if(diff > 0){
+      result = "Je moet nog €" + diff.round().toStringAsFixed(2).toString() + " krijgen.";
+    }
+    if(diff < 0){
+      result = "Je moet nog  €" + diff.round().abs().toStringAsFixed(2).toString() + " betalen.";
+    }
 
     return Scaffold(
         backgroundColor: Colors.grey[900],
@@ -67,8 +76,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 )
               ],
             ),
-            ListHeader(text: "Totaal bedrag te betalen: $totalDue",),
-            ListHeader(text: "Totaal bedrag te ontvangen: $totalDebt",),
+
+
+
+
+            ListHeader(text: "$result",),
             ListHeader(text: "Bedragen per event:",),
             ProfileInfoList(info: this.eventinfo,),
             ListHeader(text: "Bedragen per user:",),

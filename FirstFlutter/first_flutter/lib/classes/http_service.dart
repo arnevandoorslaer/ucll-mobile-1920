@@ -367,9 +367,9 @@ class HttpService {
     }
   }
 
-  static Future<double> getTotaldue(String username) async {
+  static Future<double> getTotalDue(String username) async {
     Response res = await get(
-        "http://www.arnevandoorslaer.ga:8086/user/totaldue/$username");
+        "http://www.arnevandoorslaer.ga:8086/user/geven/$username");
     print(res.statusCode);
     if (res.statusCode == 200) {
       print("DUEDUEDUE" + res.body);
@@ -381,7 +381,7 @@ class HttpService {
 
   static Future<double> getTotalDebt(String username) async {
     Response res = await get(
-        "http://www.arnevandoorslaer.ga:8086/user/totaldebt/$username");
+        "http://www.arnevandoorslaer.ga:8086/user/verkrijgen/$username");
     print(res.statusCode);
     if (res.statusCode == 200) {
       print("DEBTDEBTDEBT" + res.body);

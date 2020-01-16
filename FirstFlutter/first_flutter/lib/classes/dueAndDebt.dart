@@ -7,8 +7,8 @@ class DueAndDebt{
   factory DueAndDebt.fromJson(Map<String, dynamic> json) {
     return DueAndDebt(
         name: json['name'] as String,
-        due: json['due'] as double,
-        debt: json['debt'] as double
+        due: json['verkrijgen'] as double,
+        debt: json['geven'] as double
     );
   }
 }

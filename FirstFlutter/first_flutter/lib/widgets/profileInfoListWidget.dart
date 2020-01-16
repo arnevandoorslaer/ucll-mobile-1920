@@ -23,12 +23,14 @@ class _ProfileInfoListState extends State<ProfileInfoList> {
         children: info.map((event) {
           String due = "";
           String debt = "";
+          String result = "";
+          double diff = event.due - event.debt;
 
-          if(event.due != 0){
-            due = "Je moet nog " + event.due.toString() + " krijgen.";
+          if(diff > 0){
+            result = "Je moet nog €" + diff.round().toStringAsFixed(2).toString() + " krijgen.";
           }
-          if(event.debt != 0){
-            debt = "Je moet nog  " + event.debt.toString() + " betalen.";
+          if(diff < 0){
+            result = "Je moet nog  €" + diff.round().abs().toStringAsFixed(2).toString() + " betalen.";
           }
 
           return Column(
@@ -50,18 +52,9 @@ class _ProfileInfoListState extends State<ProfileInfoList> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
-                          ),
-                          Padding(
+                          ), Padding(
                             padding: EdgeInsets.fromLTRB(20, 5, 5, 0),
-                            child: Text(due,
-                                style: TextStyle(
-                                  color: Colors.grey[400],
-                                  fontSize: 14,
-                                )
-                            ),
-                          ),Padding(
-                            padding: EdgeInsets.fromLTRB(20, 5, 5, 0),
-                            child: Text(debt,
+                            child: Text(result,
                                 style: TextStyle(
                                   color: Colors.grey[400],
                                   fontSize: 14,
